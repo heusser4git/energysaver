@@ -1,7 +1,5 @@
 import express from 'express';
-import Repository from "../../model/database/power/Repository.mjs";
-import {Pvdata} from "../../model/Pvdata.mjs";
-import {Power} from "../../model/Power.mjs";
+import {Repository} from "../../model/database/power/Repository.mjs";
 const Router = express.Router();
 
 const repo = new Repository();

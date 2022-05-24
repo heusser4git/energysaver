@@ -1,6 +1,6 @@
 import axios from 'axios';
 import {Power} from "../Power.mjs";
-import Repository from "../database/power/Repository.mjs";
+import {Repository} from "../database/power/Repository.mjs";
 
 export default class Shelly{
     protocol;
@@ -19,10 +19,11 @@ export default class Shelly{
     }
 
     run() {
+        let json;
         axios.get(this.url)
             .then((response) => {
                 // handle success
-                const json = response.data;
+                json = response.data;
                 let power = new Power();
                 power.setTstamp(json.unixtime);
                 power.setMac(json.mac);
@@ -40,7 +41,7 @@ export default class Shelly{
                     power.addPhase(phase);
                 }
 
-                // TODO write power into the db
+                // write power into the db
                 const promise = this.repo.addPower(power);
                 promise.then((success)=>{
                     console.log('Count of inserted Power: ' + success.affectedRows);
@@ -50,7 +51,7 @@ export default class Shelly{
             })
             .catch((error) => {
                 // handle error
-                console.log(error);
+                console.log(error + json);
             })
     }
 }

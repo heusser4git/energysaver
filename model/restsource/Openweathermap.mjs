@@ -52,8 +52,8 @@ export class Openweathermap {
                     let weather = new Weather();
                     weather.setType('daily');
                     weather.setTimestamp(entry.dt);
-                    weather.setLatitude(entry.latitude);
-                    weather.setLongtitude(entry.longtitude);
+                    weather.setLatitude(obj.lat);
+                    weather.setLongtitude(obj.lon);
                     weather.setSunrise(entry.sunrise);
                     weather.setSunset(entry.sunset);
                     weather.setMoonset(entry.moonset);
@@ -85,8 +85,8 @@ export class Openweathermap {
                     let weather = new Weather();
                     weather.setType('hourly');
                     weather.setTimestamp(entry.dt);
-                    weather.setLatitude(entry.latitude);
-                    weather.setLongtitude(entry.longtitude);
+                    weather.setLatitude(obj.lat);
+                    weather.setLongtitude(obj.lon);
                     weather.setTemperatur(entry.temp);
                     weather.setClouds(entry.clouds);
                     weather.setUvi(entry.uvi);

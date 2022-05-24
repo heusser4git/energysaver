@@ -1,6 +1,6 @@
 import express from 'express';
 import {Pvdata} from "../../model/Pvdata.mjs";
-import Repository from "../../model/database/sbfspot/Repository.mjs";
+import {Repository} from "../../model/database/sbfspot/Repository.mjs";
 const Router = express.Router();
 
 const pvRepo = new Repository();
@@ -43,11 +43,15 @@ export default Router.get("/", (req, res)=>{
  * http://localhost:<port>/pvData/current
  */
 Router.get("/current", (req, res)=>{
-    let date = new Date ();
+    // let date = new Date ();
+    // let now = (date.getTime()/1000)+timezonediff;
+    // // TODO naechste Zeile ist ein Testtimestamp... muss entfernt werden
+    // // now = 1652107035;
+    let date = new Date();
     let timezonediff = -date.getTimezoneOffset()*60;
-    let now = (date.getTime()/1000)+timezonediff;
-    // TODO naechste Zeile ist ein Testtimestamp... muss entfernt werden
-    now = 1652107035;
+    const now = (date.getTime()/1000);
+    console.log(new Date((now-300) * 1000).toISOString().slice(0, 19).replace('T', ' '));
+    console.log(new Date(now * 1000).toISOString().slice(0, 19).replace('T', ' '));
 
     let param = {"start": (now-300), "end": now};
     const data = pvRepo.getPvData(param);

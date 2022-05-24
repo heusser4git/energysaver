@@ -9,9 +9,13 @@ export default class Connection {
     database;
     host;
     port;
-    constructor(secretfile) {
+    constructor(secretfile, path='') {
+        let newpath = './model/secretdata/';
+        if(path.length>0) {
+            newpath = path;
+        }
         try {
-            const data = fs.readFileSync('./model/secretdata/'+secretfile, 'utf-8');
+            const data = fs.readFileSync(newpath+secretfile, 'utf-8');
             const obj = JSON.parse(data);
             this.password = obj.password;
             this.user = obj.user;
@@ -26,7 +30,7 @@ export default class Connection {
 
     pool() {
         return mysql.createPool({
-            connectionLimit: 10,
+            connectionLimit: 100,
             password: this.password,
             user: this.user,
             database: this.database,

@@ -5,14 +5,14 @@
 ~~- secretdata einbinden~~
 ~~- test mit express: website ausgeben~~
 
-- demodatageneratoren: sbfspot, shelly
+- demodatageneratoren: sbfspot, ~~shelly~~
 
 - Devices implementieren (Waschmaschine, ...)
   - DB für devices
   - Object/Repo für devices
   - REST-route für devices
 - installation
-  - create database script
+  ~~- create database script~~
   - anleitung
   - tests
 
