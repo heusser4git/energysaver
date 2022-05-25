@@ -1,11 +1,17 @@
 # Energy Saver
+Der Energy Saver sammelt Daten über Stromproduktion, aktuellen Strombezug/-rücklieferung, sowie die Wetterprognose für die nächsten Tage.
+Grafisch aufbereitet werden in der aktuellen Version:
+- Die aktuelle Stromproduktion
+- Der aktuelle Strombezug/-rücklieferung
+- Die Stromproduktion der letzten 12 Stunden als Chart
+- Die Wetterprognose der nächsten Tage
 
-**VORAUSSETZUNGEN**
+###**VORAUSSETZUNGEN**
 1. Datenbankserver MySQL
    1. Datenbankuser mit Berechtigung Datenbanken zu erstellen, Tabellen zu erstellen, CRUD Operationen auszuführen
 2. Node.js >= Version 16
 
-**INSTALLATION**
+###**INSTALLATION**
 1. Erstellen der Datenbanken
    1. power
    2. wetter
@@ -50,45 +56,53 @@
       1. `node ./index.mjs`
 
 
-**REST-API**
-- http://<localhost>:<port>/                                    Gibt die index.html aus dem Verzeichnis view aus
+###**REST-API**
+**http://<localhost>:<port>/**
+Gibt die index.html aus dem Verzeichnis view aus
 
-_Photovoltaik_
+_**Photovoltaik**_
+
 `http://<localhost>:<port>/pvData/` 
+
 Gibt alle PV-Eintraege aus
 
 `http://<localhost>:<port>/pvData/1652554800-1652558400`
+
 Gibt alle PV-Eintraege waehrend einer definierten Periode aus
 
 `http://<localhost>:<port>/pvData/current`
+
 Holt den aktuellsten PV-Eintrag bis max. 5min zurueck oder gibt ein leeres Objekt aus
 
-_Wetter_
+_**Wetter**_
+
 `http://<localhost>:<port>/wetter/daily/`
+
 Gibt alle täglichen Wetterprognosen aus
 
 `http://<localhost>:<port>/wetter/daily/1652554800-1652558400`
+
 Gibt alle täglichen Wetterprognosen waehrend einer definierten Periode aus
 
 `http://<localhost>:<port>/wetter/daily/449`
+
 Gibt gibt die tägliche Wetterprognose mit der angegebenen ID aus
 
-_Strommessung Hauseingang_
+**_Strommessung Hauseingang_**
+
 `http://<localhost>:<port>/power/`
+
 Gibt alle Power-Eintraege aus
 
 `http://<localhost>:<port>/power/1652554800-1652558400`
+
 Gibt alle Power-Eintraege waehrend einer definierten Periode aus
 
 `http://<localhost>:<port>/power/current`
+
 Holt den aktuellsten Power-Eintrag bis max. 5min zurueck oder gibt ein leeres Objekt aus
 
-
-
-
-
-
-
+.................................................................................
 
 // TODO
 ~~- routen für weather~~
