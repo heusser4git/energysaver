@@ -1,4 +1,4 @@
-###### Energy Saver
+# Energy Saver
 
 **VORAUSSETZUNGEN**
 1. Datenbankserver MySQL
@@ -20,6 +20,7 @@
       1. dbPower.json
       2. dbSBFspot.json
       3. dbWeather.json
+      ![](./readme/readme_secretdata.png "Secretdata-Folder Printscreen")
    2. Jeweils die DB-Verbinungsinformation als JSON-Objekt in den Files ablegen in der Form:
    3. {
       "password": "xxx",
