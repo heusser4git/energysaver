@@ -5,11 +5,11 @@
 ~~- secretdata einbinden~~
 ~~- test mit express: website ausgeben~~
 
-- close connections!!!
+~~- close connections!!!~~
 ~~- demodatageneratoren: ~~sbfspot~~, ~~shelly~~~~
 - create helper class
 ~~- openweathermap (key remove)~~
-- Shelly (secretdata implementation)
+~~- Shelly (secretdata implementation)~~
 
 - Devices implementieren (Waschmaschine, ...)
   - DB für devices

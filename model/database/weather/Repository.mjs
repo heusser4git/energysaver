@@ -41,15 +41,12 @@ export default class Repository {
         if(query.length>25) {
             return new Promise((resolve, reject) => {
                 this.pool.query(query, (error, elements) => {
-                    //this.pool.end();
                     if (error) {
                         return reject(error);
                     }
                     return resolve(elements);
                 });
-            }).finally(()=>{
-                this.pool.end();
-            });
+            })
         }
         return '';
     }
@@ -113,14 +110,11 @@ export default class Repository {
 
             return new Promise((resolve, reject) => {
                 this.pool.query(query, (error, response) => {
-                    //this.pool.end();
                     if (error) {
                         return reject(error);
                     }
                     console.log('addWeather inserted: '+response.insertId);
                     return resolve(response.insertId);
-                }).finally(()=>{
-                    this.pool.end();
                 });
             });
         }
@@ -141,14 +135,11 @@ export default class Repository {
 
             return new Promise((resolve, reject) => {
                 this.pool.query(query, (error, response) => {
-                    //this.pool.end()
                     if (error) {
                         return reject(error);
                     }
                     console.log(response.message);
                     return resolve(response.changedRows);
-                }).finally(()=>{
-                    this.pool.end();
                 });
             });
         }

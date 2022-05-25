@@ -19,20 +19,21 @@ app.use("/", WebRoutes);
 const port = 1234;
 app.listen(port, () => console.log('Server ready on Port ' + port));
 
-const DEMOMODE = 1;
+const DEMOMODE = 0;
 
 const weatherApi = new Openweathermap();
 // intial einlesen des wetters
-// weatherApi.run()
+weatherApi.run()
 // wetter stuendlich einlesen
-// const intervalWeather = setInterval(() => { weatherApi.run() }, 3600000);
+const intervalWeather = setInterval(() => { weatherApi.run() }, 3600000);
 
 
 
 if(DEMOMODE) {
     // create demo data for power-messurement
+    const repoPower = new powerRepo();
     const intervalPowerDemo = setInterval(() => {
-        let promise = new powerRepo().createDemoPower(new Date().getTime()/1000);
+        let promise = repoPower.createDemoPower(new Date().getTime()/1000);
         promise.catch((onerror)=>{
             console.error(onerror)
         })

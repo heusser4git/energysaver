@@ -1,6 +1,7 @@
 import axios from 'axios';
 import {Power} from "../Power.mjs";
 import {Repository} from "../database/power/Repository.mjs";
+import fs from "fs";
 
 export default class Shelly{
     protocol;
@@ -10,12 +11,22 @@ export default class Shelly{
     repo;
 
     constructor() {
-        this.protocol = 'http';
-        this.ip = "192.168.1.3";
-        this.port = 80;
+        this.hlpGetSecretData()
         this.url = this.protocol + "://" + this.ip + ":" + this.port + "/status";
-
+        console.log('URL for Shelly: ' + this.url)
         this.repo = new Repository();
+    }
+
+    hlpGetSecretData(secretfile='shelly.json', path='./model/secretdata/') {
+        try {
+            const data = fs.readFileSync(path+secretfile, 'utf-8');
+            const obj = JSON.parse(data);
+            this.ip = obj.ip;
+            this.port = obj.port;
+            this.protocol = obj.protocol;
+        } catch(error) {
+            console.error(error);
+        }
     }
 
     run() {
