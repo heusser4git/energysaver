@@ -19,8 +19,8 @@ export class WeatherForecastHourlyQuery {
             if(weather.getTimestamp()>0) {
                 params.push(query.generateParams("timestamp", "=", weather.getTimestamp()));
             }
-            if(weather.getLongtitude()>0) {
-                params.push(query.generateParams("longtitude", "_", weather.getLongtitude()));
+            if(weather.getLongitude()>0) {
+                params.push(query.generateParams("longitude", "_", weather.getLongitude()));
             }
             if(weather.getLatitude()>0) {
                 params.push(query.generateParams("latitude", "_", weather.getLatitude()));

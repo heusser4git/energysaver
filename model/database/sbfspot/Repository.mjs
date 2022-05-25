@@ -8,8 +8,12 @@ export class Repository {
     connection;
     pool;
 
-    constructor(file, path='') {
-        this.connection = new Connection('dbSBFspot.json', path);
+    constructor(file='dbSBFspot.json', path=null) {
+        if(path != null) {
+            this.connection = new Connection(file, path);
+        } else {
+            this.connection = new Connection(file);
+        }
         this.pool = this.connection.pool();
     }
 
@@ -77,6 +81,7 @@ export class Repository {
     clearPvData() {
         return new Promise((resolve, reject) => {
             this.pool.query('truncate spotdata', (error, response) => {
+                //this.pool.end();
                 if (error) {
                     return reject(error);
                 }
@@ -99,6 +104,7 @@ export class Repository {
         }
         return new Promise((resolve, reject) => {
             this.pool.query(query, (error, response) => {
+                //this.pool.end();
                 if (error) {
                     return reject(error);
                 }

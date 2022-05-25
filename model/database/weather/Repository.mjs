@@ -7,8 +7,12 @@ export default class Repository {
     connection;
     pool;
     
-    constructor(file='dbWeather.json', path='') {
-        this.connection = new Connection(file, path);
+    constructor(file='dbWeather.json', path=null) {
+        if(path != null) {
+            this.connection = new Connection(file, path);
+        } else {
+            this.connection = new Connection(file);
+        }
         this.pool = this.connection.pool();
     }
     
@@ -37,11 +41,14 @@ export default class Repository {
         if(query.length>25) {
             return new Promise((resolve, reject) => {
                 this.pool.query(query, (error, elements) => {
+                    //this.pool.end();
                     if (error) {
                         return reject(error);
                     }
                     return resolve(elements);
                 });
+            }).finally(()=>{
+                this.pool.end();
             });
         }
         return '';
@@ -62,7 +69,7 @@ export default class Repository {
         w.setId(entry.id);
         w.setTimestamp(entry.timestamp);
         w.setLatitude(entry.latitude);
-        w.setLongtitude(entry.longtitude);
+        w.setLongitude(entry.longitude);
         w.setTemperatur(entry.temperatur);
         w.setClouds(entry.clouds);
         w.setUvi(entry.uv);
@@ -101,16 +108,19 @@ export default class Repository {
     addWeather(weather) {
         if(weather instanceof Weather) {
             let insertQuery = 'INSERT INTO ?? (??,??,??,??,??,??,??,??,??,??,??,??,??,??,??,??,??,??,??,??,??,??,??,??,??,??,??,??) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)';
-            let query = this.connection.mysql.format(insertQuery, ["tblWetter", "type", "timestamp","latitude", "longtitude", "temperatur", "clouds", "uvi", "visibility", "weather_main", "weather_description", "weather_icon", "sunrise", "sunset", "moonset", "moon_phase", "pressure", "humidity", "dew_point", "wind_speed", "wind_deg", "wind_gust", "rain", "temp_day", "temp_min", "temp_max", "temp_night", "temp_eve", "temp_morn",
-                weather.getType(), weather.getTimestamp(), weather.getLongtitude(), weather.getLatitude(), weather.getTemperatur(), weather.getClouds(), weather.getUvi(), weather.getVisibility(), weather.getMain(), weather.getDescription(), weather.getIcon(), weather.getSunrise(), weather.getSunset(), weather.getMoonset(), weather.getMoonphase(), weather.getPressure(), weather.getHumidity(), weather.getDewpoint(), weather.getWindspeed(), weather.getWinddeg(), weather.getWindgust(), weather.getRain(), weather.getTempday(), weather.getTempmin(), weather.getTempmax(), weather.getTempnight(), weather.getTempeve(), weather.getTempmorn()]);
+            let query = this.connection.mysql.format(insertQuery, ["tblWetter", "type", "timestamp","latitude", "longitude", "temperatur", "clouds", "uvi", "visibility", "weather_main", "weather_description", "weather_icon", "sunrise", "sunset", "moonset", "moon_phase", "pressure", "humidity", "dew_point", "wind_speed", "wind_deg", "wind_gust", "rain", "temp_day", "temp_min", "temp_max", "temp_night", "temp_eve", "temp_morn",
+                weather.getType(), weather.getTimestamp(), weather.getLongitude(), weather.getLatitude(), weather.getTemperatur(), weather.getClouds(), weather.getUvi(), weather.getVisibility(), weather.getMain(), weather.getDescription(), weather.getIcon(), weather.getSunrise(), weather.getSunset(), weather.getMoonset(), weather.getMoonphase(), weather.getPressure(), weather.getHumidity(), weather.getDewpoint(), weather.getWindspeed(), weather.getWinddeg(), weather.getWindgust(), weather.getRain(), weather.getTempday(), weather.getTempmin(), weather.getTempmax(), weather.getTempnight(), weather.getTempeve(), weather.getTempmorn()]);
 
             return new Promise((resolve, reject) => {
                 this.pool.query(query, (error, response) => {
+                    //this.pool.end();
                     if (error) {
                         return reject(error);
                     }
                     console.log('addWeather inserted: '+response.insertId);
                     return resolve(response.insertId);
+                }).finally(()=>{
+                    this.pool.end();
                 });
             });
         }
@@ -131,11 +141,14 @@ export default class Repository {
 
             return new Promise((resolve, reject) => {
                 this.pool.query(query, (error, response) => {
+                    //this.pool.end()
                     if (error) {
                         return reject(error);
                     }
                     console.log(response.message);
                     return resolve(response.changedRows);
+                }).finally(()=>{
+                    this.pool.end();
                 });
             });
         }

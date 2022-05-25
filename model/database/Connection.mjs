@@ -1,4 +1,4 @@
-import mysql from 'mysql';
+import mysql from 'mysql2';
 import fs from 'fs';
 
 
@@ -9,13 +9,9 @@ export default class Connection {
     database;
     host;
     port;
-    constructor(secretfile, path='') {
-        let newpath = './model/secretdata/';
-        if(path.length>0) {
-            newpath = path;
-        }
+    constructor(secretfile, path='./model/secretdata/') {
         try {
-            const data = fs.readFileSync(newpath+secretfile, 'utf-8');
+            const data = fs.readFileSync(path+secretfile, 'utf-8');
             const obj = JSON.parse(data);
             this.password = obj.password;
             this.user = obj.user;
@@ -29,8 +25,9 @@ export default class Connection {
     }
 
     pool() {
+        console.log('DB-Pool startet: ' + this.database)
         return mysql.createPool({
-            connectionLimit: 100,
+            connectionLimit: 10,
             password: this.password,
             user: this.user,
             database: this.database,

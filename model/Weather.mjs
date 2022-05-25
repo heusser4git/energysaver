@@ -3,7 +3,7 @@ export class Weather {
     type;
     timestamp;
     latitude;
-    longtitude;
+    longitude;
     temperatur;
     clouds;
     uvi;
@@ -31,11 +31,11 @@ export class Weather {
     tempeve;
     tempmorn;
 
-    constructor(id, type, timestamp, latitude, longtitude, temperatur, clouds, uvi, visibility, main, description, icon, sunrise, sunset, moonrise, moonset, moonphase, pressure, humidity, dewpoint, windspeed, winddeg, windgust, pop, rain, tempday, tempmin, tempmax, tempnight, tempeve, tempmorn) {
+    constructor(id, type, timestamp, latitude, longitude, temperatur, clouds, uvi, visibility, main, description, icon, sunrise, sunset, moonrise, moonset, moonphase, pressure, humidity, dewpoint, windspeed, winddeg, windgust, pop, rain, tempday, tempmin, tempmax, tempnight, tempeve, tempmorn) {
         this.id = id;
         this.timestamp = timestamp;
         this.latitude = latitude;
-        this.longtitude = longtitude;
+        this.longitude = longitude;
         this.temperatur = temperatur;
         this.clouds = clouds;
         this.uvi = uvi;
@@ -97,12 +97,12 @@ export class Weather {
         this.latitude = value;
     }
 
-    getLongtitude() {
-        return this.longtitude;
+    getLongitude() {
+        return this.longitude;
     }
 
-    setLongtitude(value) {
-        this.longtitude = value;
+    setLongitude(value) {
+        this.longitude = value;
     }
 
     getTemperatur() {
@@ -263,14 +263,6 @@ export class Weather {
 
     setRain(value) {
         this.rain = value;
-    }
-
-    getTimestamp() {
-        return this.timestamp;
-    }
-
-    setTimestamp(value) {
-        this.timestamp = value;
     }
 
     getTempmin() {

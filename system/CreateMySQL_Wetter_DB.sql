@@ -5,11 +5,11 @@ CREATE Database Wetter;
 USE Wetter;
 
 CREATE TABLE IF NOT EXISTS `tblWetter` (
-                                           `id` INT NOT NULL AUTO_INCREMENT,
-                                           `type` VARCHAR(255) NULL,
+    `id` INT NOT NULL AUTO_INCREMENT,
+    `type` VARCHAR(255) NULL,
     `timestamp` INT NULL,
     `latitude` FLOAT NULL,
-    `longtitude` FLOAT NULL,
+    `longitude` FLOAT NULL,
     `temperatur` FLOAT NULL,
     `clouds` FLOAT NULL,
     `uvi` FLOAT NULL,

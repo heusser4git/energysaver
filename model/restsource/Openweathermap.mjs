@@ -6,10 +6,11 @@ import https from 'https';
 
 import Repository from "../database/weather/Repository.mjs";
 import {Weather} from "../Weather.mjs";
+import fs from "fs";
 
 export class Openweathermap {
     repository;
-    apikey = "bcd3c8bcec345c7a611141e3cc3b8257";
+    apikey;
     apikeyParam;
 
     // http://api.openweathermap.org/geo/1.0/direct?q=malans,,CH&appid=bcd3c8bcec345c7a611141e3cc3b8257
@@ -18,9 +19,22 @@ export class Openweathermap {
     part = "current,minutely,alerts";
     url;
     constructor() {
+        this.hlpGetSecretData();
+
         this.repository = new Repository();
         this.apikeyParam = "&appid=" + this.apikey;
         this.url = `https://api.openweathermap.org/data/2.5/onecall?lat=${this.lat}&lon=${this.lon}&units=metric&exclude=${this.part}` + this.apikeyParam;
+    }
+    hlpGetSecretData(secretfile='openweather.json', path='./model/secretdata/') {
+        try {
+            const data = fs.readFileSync(path+secretfile, 'utf-8');
+            const obj = JSON.parse(data);
+            this.apikey = obj.apikey;
+            this.lat = obj.latitude;
+            this.lon = obj.longitude;
+        } catch(error) {
+            console.error(error);
+        }
     }
 
     run() {
@@ -53,7 +67,7 @@ export class Openweathermap {
                     weather.setType('daily');
                     weather.setTimestamp(entry.dt);
                     weather.setLatitude(obj.lat);
-                    weather.setLongtitude(obj.lon);
+                    weather.setLongitude(obj.lon);
                     weather.setSunrise(entry.sunrise);
                     weather.setSunset(entry.sunset);
                     weather.setMoonset(entry.moonset);
@@ -86,7 +100,7 @@ export class Openweathermap {
                     weather.setType('hourly');
                     weather.setTimestamp(entry.dt);
                     weather.setLatitude(obj.lat);
-                    weather.setLongtitude(obj.lon);
+                    weather.setLongitude(obj.lon);
                     weather.setTemperatur(entry.temp);
                     weather.setClouds(entry.clouds);
                     weather.setUvi(entry.uvi);

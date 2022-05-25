@@ -5,8 +5,12 @@ import {Power} from "../../Power.mjs";
 export class Repository {
     connection;
     pool;
-    constructor(file='dbPower.json', path='') {
-        this.connection = new Connection(file, path);
+    constructor(file='dbPower.json', path=null) {
+        if(path != null) {
+            this.connection = new Connection(file, path);
+        } else {
+            this.connection = new Connection(file);
+        }
         this.pool = this.connection.pool();
     }
     getRawPowerData(filter) {
@@ -22,11 +26,14 @@ export class Repository {
         if (query.length > 10) {
             return new Promise((resolve, reject) => {
                this.pool.query(query, (error, elements) => {
+                    //this.pool.end();
                     if (error) {
                         return reject(error);
                     }
                    return resolve(elements);
                 });
+            }).finally(()=>{
+                this.pool.end();
             });
         }
     }
@@ -87,6 +94,7 @@ export class Repository {
                 power.getTstamp(), power.getMac(), power.getPower(), phase1.getPower(), phase1.getPowerfactor(), phase1.getCurrent(), phase1.getVoltage(), phase1.getIsvalid(), phase1.getTotal(), phase1.getTotalreturned(), phase2.getPower(), phase2.getPowerfactor(), phase2.getCurrent(), phase2.getVoltage(), phase2.getIsvalid(), phase2.getTotal(), phase2.getTotalreturned(), phase3.getPower(), phase3.getPowerfactor(), phase3.getCurrent(), phase3.getVoltage(), phase3.getIsvalid(), phase3.getTotal(), phase3.getTotalreturned()]);
             return new Promise((resolve, reject) => {
                 this.pool.query(query, (error, response) => {
+                    //this.pool.end();
                     if (error) {
                         console.log('ERROR hier')
                         return reject(error);
@@ -94,6 +102,8 @@ export class Repository {
                     console.log('addPower: ' + response.affectedRows)
                     return resolve(response);
                 });
+            }).finally(()=>{
+                this.pool.end();
             });
         }
     }
