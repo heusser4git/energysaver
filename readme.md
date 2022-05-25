@@ -58,6 +58,8 @@ Grafisch aufbereitet werden in der aktuellen Version:
 
 
 ###**REST-API**
+_**Default Server-Port: 1234**_
+
 `http://<localhost>:<port>/`
 Gibt die index.html aus dem Verzeichnis view aus
 
