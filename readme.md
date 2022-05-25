@@ -10,9 +10,10 @@ Grafisch aufbereitet werden in der aktuellen Version:
 1. Datenbankserver MySQL
    1. Datenbankuser mit Berechtigung Datenbanken zu erstellen, Tabellen zu erstellen, CRUD Operationen auszuführen
 2. Node.js >= Version 16
+   1. Node-Module gemäss _package.json_
 
 ###**INSTALLATION**
-1. Erstellen der Datenbanken
+1. Erstellen der Datenbanken `create database <DB-Name>`
    1. power
    2. wetter
    3. sbfspot
@@ -57,7 +58,7 @@ Grafisch aufbereitet werden in der aktuellen Version:
 
 
 ###**REST-API**
-**http://<localhost>:<port>/**
+`http://<localhost>:<port>/`
 Gibt die index.html aus dem Verzeichnis view aus
 
 _**Photovoltaik**_
