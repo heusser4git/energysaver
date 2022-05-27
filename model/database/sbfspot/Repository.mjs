@@ -1,7 +1,7 @@
 import Connection from '../Connection.mjs'
 import {Pvdata} from "../../Pvdata.mjs";
 import {PvdataQuery} from "../../query/PvdataQuery.mjs";
-import {Power} from "../../Power.mjs";
+import {HlpClass} from "../../HlpClass.mjs";
 
 
 export class Repository {
@@ -30,7 +30,7 @@ export class Repository {
                 let sql = queryData[0] + " AND unix_timestamp(timestamp) >= " + filter.start + " AND unix_timestamp(timestamp) <= " + filter.end;
                 let fields = queryData[1];
                 query = this.connection.mysql.format(sql, fields);
-                query = query + ' ORDER BY timestamp DESC';
+                query = query + ' GROUP BY Nearest5min ORDER BY timestamp DESC';
             }
         }
         console.log(query)
@@ -45,12 +45,6 @@ export class Repository {
             });
         }
     }
-    hlpUnixToDbDate(unix) {
-        let date = new Date(unix * 1000);
-        // TODO remove console.log
-        console.log(date)
-        return new Date(unix * 1000).toISOString().slice(0, 19).replace('T', ' ');
-    }
 
     async getPvData(filter) {
         const rows = await this.getRawPvData(filter);
@@ -64,8 +58,9 @@ export class Repository {
 
     hlpSpotdataToPvdata(entry) {
         let p = new Pvdata();
-        let date = new Date(entry.TimeStamp);
+        let date = new Date(entry.Nearest5min);
         p.setTimestamp(date.getTime()/1000);
+        p.setNearest5min(entry.Nearest5min);
         p.setPower(entry.PacTot);
         p.setEfficiency(entry.Efficiency);
         p.setEnergy(entry.EToday);
@@ -74,73 +69,50 @@ export class Repository {
         return p;
     }
 
-    /**
-     * Deletes all Data from PVdata
-     * @returns {Promise<unknown>}
+
+
+
+
+
+
+
+
+    /*********************************************************************************************************************
+     * DEMO-DATA-HANDLING
      */
-    clearPvData() {
-        return new Promise((resolve, reject) => {
-            this.pool.query('truncate spotdata', (error, response) => {
-                if (error) {
-                    return reject(error);
-                }
-                console.log('clearPvData: ' + response.affectedRows)
-                return resolve(response);
+
+    addPvDemoData(pvdata) {
+        if(pvdata instanceof Pvdata) {
+            let insertQuery = 'INSERT IGNORE INTO ?? (??,??,??,??,??,??,??,??) VALUES (?,?,?,?,?,?,?,?);';
+            let query = '';
+            query += this.connection.mysql.format(insertQuery, ["spotdata", "TimeStamp", "Serial", "Pac1", "Pac2", "Pac3", "EToday", "ETotal", "Temperature",
+                pvdata.timestamp, 1901372529, pvdata.power, 1, 1, pvdata.energy, pvdata.etotal, pvdata.temperature]);
+            console.log(query);
+            return new Promise((resolve, reject) => {
+                this.pool.query(query, (error, response) => {
+                    if (error) {
+                        return reject(error);
+                    }
+                    console.log('addPvDemoData: ' + response.affectedRows)
+                    return resolve(response);
+                });
             });
-        });
+        }
     }
 
-    addPvDemoData(unix) {
-        if(!Array.isArray(unix)) {
-            unix = [unix];
-        }
-        let insertQuery = 'INSERT IGNORE INTO ?? (??,??,??,??,??,??,??,??,??,??,??,??,??,??,??,??,??,??,??,??,??,??) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);';
-        let query = '';
-        for (let timestamp of unix) {
-            if (timestamp != null && timestamp > 0)
-                query += this.connection.mysql.format(insertQuery, ["spotdata", "TimeStamp", "Serial", "Pdc1", "Pdc2", "Idc1", "Idc2", "Udc1", "Udc2", "Pac1", "Pac2", "Pac3", "Iac1", "Iac2", "Iac3", "Uac1", "Uac2", "Uac3", "EToday", "ETotal", "Frequency", "OperatingTime", "FeedInTime",
-                    timestamp, 1901372529, this.hlpGetRandNum(4), this.hlpGetRandNum(4), this.hlpGetRandNum(1, 3), this.hlpGetRandNum(1, 3), this.hlpGetRandNum(3, 2), this.hlpGetRandNum(3, 2), this.hlpGetRandNum(4), this.hlpGetRandNum(4), this.hlpGetRandNum(4), this.hlpGetRandNum(1, 3), this.hlpGetRandNum(1, 3), this.hlpGetRandNum(1, 3), this.hlpGetRandNum(3, 2), this.hlpGetRandNum(3, 2), this.hlpGetRandNum(3, 2), this.hlpGetRandNum(5), this.hlpGetRandNum(8), 50, this.hlpGetRandNum(5, 1), this.hlpGetRandNum(4, 2)]);
-        }
+    deleteTodaysPvData() {
+        let morningUnix = HlpClass.getUnixMorningAt(0);
+        let query = 'delete from spotdata where timestamp >= ' + morningUnix;
+        console.log(query);
         return new Promise((resolve, reject) => {
             this.pool.query(query, (error, response) => {
                 if (error) {
                     return reject(error);
                 }
-                console.log('addPvDemoData: ' + response.affectedRows)
+                console.log('deleteTodaysPvData: ' + response.affectedRows)
                 return resolve(response);
             });
         });
-    }
-
-    createPVDemoDataForTodayTillNow() {
-        this.clearPvData().then((success)=>{
-            let now = new Date();
-            const nowUnix = now.getTime()/1000;
-            // unix in the morning at 6:00
-            now.setHours(6);
-            now.setMinutes(0);
-            now.setSeconds(0);
-            let unix = now.getTime()/1000;
-            let unixArray = [];
-            while (unix < nowUnix) {
-                unix += 300;
-                unixArray.push(unix);
-                this.addPvDemoData(unix);
-            }
-        }).catch((onerror)=>{
-            console.error(onerror);
-        })
-    }
-
-    hlpGetRandNum(vorkommastellen=2, nachkommastellen=0) {
-        const vFaktor = Math.pow(10, vorkommastellen);
-        const vorkomma = Number(Math.random().toString().slice(0, (2+vorkommastellen)))*vFaktor;
-        const nachkomma = Number(Math.random().toString().slice(2, 2+nachkommastellen));
-        if(!isNaN(Number(vorkomma + '.' + nachkomma) )) {
-            return Number(vorkomma + '.' + nachkomma);
-        } else {
-            return this.hlpGetRandNum(vorkommastellen, nachkommastellen);
-        }
     }
 }
 

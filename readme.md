@@ -17,12 +17,14 @@ Grafisch aufbereitet werden in der aktuellen Version:
    1. power
    2. wetter
    3. sbfspot
-2. Einspielen der Scripts aus dem Verzeichnis ./system in die jeweilige Datenbank:
+2. Einspielen der Scripts aus dem Verzeichnis ./system in die jeweilige Datenbank: `\. <path>\CreateMySQL_..._DB.sql`
    1. Datenbank power -> CreateMySQL_Power_DB.sql
    2. Datenbank wetter -> CreateMySQL_Wetter_DB.sql
    3. Datenbank sbfspot -> CreateMySQL_SBFspot_DB.sql
-3. Herunterladen des Energy Savers: https://github.com/heusser4git/energysaver.git
-4. Konfigruationsinformationen für die Datenbankverbindungen unter ./model/secredata ablegen:
+3. Optional: Für den Demomode werden Templatedaten aus dem Verzeichnis ./system für die PV-Daten eingespielt: `\. <path>\sbfspot.bak`
+   1. Datenbank sbfspot -> sbfspot.bak
+4. Herunterladen des Energy Savers: https://github.com/heusser4git/energysaver.git
+5. Konfigruationsinformationen für die Datenbankverbindungen unter ./model/secredata ablegen:
    1. JSON-Files erstellen:
       1. dbPower.json
       2. dbSBFspot.json
@@ -36,7 +38,7 @@ Grafisch aufbereitet werden in der aktuellen Version:
       "host": "xxx",
       "port": 3306
       }`
-5. Konfigruationsinformationen für die REST-APIs unter ./model/secredata ablegen:
+6. Konfigruationsinformationen für die REST-APIs unter ./model/secredata ablegen:
    1. JSON-Files erstellen:
       1. openweather.json
       2. shelly.json
@@ -52,7 +54,7 @@ Grafisch aufbereitet werden in der aktuellen Version:
          "port": "80",
          "protocol": "http"
          }`
-6. Server starten:
+7. Server starten:
    1. Root-Verzeichnis der App:
       1. `node ./index.mjs`
 
@@ -124,7 +126,7 @@ Holt den aktuellsten Power-Eintrag bis max. 5min zurueck oder gibt ein leeres Ob
   - DB für devices
   - Object/Repo für devices
   - REST-route für devices
-- installation
+~~- installation~~
   ~~- create database script~~
   ~~- anleitung~~
   - tests
@@ -133,3 +135,8 @@ Holt den aktuellsten Power-Eintrag bis max. 5min zurueck oder gibt ein leeres Ob
 
 DOKU
 fs -> What is Synchronous and Asynchronous approach? -> https://www.geeksforgeeks.org/node-js-file-system/
+
+5min interval mit SQL:
+https://www.codelabs365.com/mysql-group-data-by-15-minutes/
+
+problems with timezoneshift...

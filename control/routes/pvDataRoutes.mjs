@@ -1,6 +1,7 @@
 import express from 'express';
 import {Pvdata} from "../../model/Pvdata.mjs";
 import {Repository} from "../../model/database/sbfspot/Repository.mjs";
+import {HlpClass} from "../../model/HlpClass.mjs";
 const Router = express.Router();
 
 const pvRepo = new Repository();
@@ -43,17 +44,8 @@ export default Router.get("/", (req, res)=>{
  * http://localhost:<port>/pvData/current
  */
 Router.get("/current", (req, res)=>{
-    // let date = new Date ();
-    // let now = (date.getTime()/1000)+timezonediff;
-    // // TODO naechste Zeile ist ein Testtimestamp... muss entfernt werden
-    // // now = 1652107035;
-    let date = new Date();
-    let timezonediff = -date.getTimezoneOffset()*60;
-    const now = (date.getTime()/1000);
-    console.log(new Date((now-300) * 1000).toISOString().slice(0, 19).replace('T', ' '));
-    console.log(new Date(now * 1000).toISOString().slice(0, 19).replace('T', ' '));
-
-    let param = {"start": (now-300), "end": now};
+    const nowUnix = HlpClass.getUnixNow();
+    let param = {"start": (nowUnix-300), "end": nowUnix};
     const data = pvRepo.getPvData(param);
     data.then((pvdata) => {
         if(pvdata.length>0) {
@@ -65,3 +57,21 @@ Router.get("/current", (req, res)=>{
         console.error(onerror);
     });
 });
+
+Router.get("/today", (req, res)=>{
+    const nowUnix = HlpClass.getUnixNow();
+    // unix in the morning at 6:00
+    const unixMorning = HlpClass.getUnixMorningAt(0);
+
+    let param = {"start": unixMorning, "end": nowUnix};
+    const data = pvRepo.getPvData(param);
+    data.then((pvdata) => {
+        res.send(pvdata);
+    }).catch((onerror)=>{
+        console.error(onerror);
+    });
+});
+
+function hlpUnixToString(unix) {
+    return new Date(unix * 1000).toISOString();
+}

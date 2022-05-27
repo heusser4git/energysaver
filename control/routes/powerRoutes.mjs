@@ -1,5 +1,6 @@
 import express from 'express';
 import {Repository} from "../../model/database/power/Repository.mjs";
+import {HlpClass} from "../../model/HlpClass.mjs";
 const Router = express.Router();
 
 const repo = new Repository();
@@ -29,12 +30,8 @@ export default Router.get("/", (req, res)=>{
 
 // http://localhost:<port>/power/current
 Router.get("/current", (req, res)=>{
-    let date = new Date ();
-    // let timezonediff = -date.getTimezoneOffset()*60;
-    // let now = (date.getTime()/1000)+timezonediff;
-    let now = (date.getTime()/1000);
-
-    let param = {"start": (now-300), "end": now};
+    const nowUnix = HlpClass.getUnixNow();
+    let param = {"start": (nowUnix-300), "end": nowUnix};
     const data = repo.getPowerData(param);
     data.then((success) => {
         if(success.length>0) {
@@ -42,6 +39,20 @@ Router.get("/current", (req, res)=>{
         } else {
             res.send({});
         }
+    }).catch((onerror)=>{
+        console.error(onerror);
+    });
+});
+
+Router.get("/today", (req, res)=>{
+    const nowUnix = HlpClass.getUnixNow();
+    // unix in the morning at 6:00
+    const unixMorning = HlpClass.getUnixMorningAt(0);
+
+    let param = {"start": (unixMorning), "end": nowUnix};
+    const data = repo.getRawPowerDataGrouped(param);
+    data.then((powerdata) => {
+        res.send(powerdata);
     }).catch((onerror)=>{
         console.error(onerror);
     });

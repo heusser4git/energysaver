@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome to the Energy Saver</title>
+    <script defer type="module" src="app.mjs"></script>
+
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/data.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/series-label.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    <link rel="stylesheet" href="chart.css">
+</head>
+<body>
+
+
+<div>
+    <div id="container"></div>
+</div>
+<script>
+    // function hlpUnixToString(unix) {
+    //     return new Date(unix * 1000).toISOString().slice(0, 19).replace('T', ' ');
+    // }
+    // async function pvData(current=false) {
+    //     let pvdataFetch;
+    //     if(current) {
+    //         pvdataFetch = await fetch('http://localhost:1234/power/current');
+    //     } else {
+    //         pvdataFetch = await fetch('http://localhost:1234/power/1653489266-1653489357');
+    //     }
+    //     if(pvdataFetch.status==200) {
+    //         const pvdata = await pvdataFetch.json();
+    //         let result = [];
+    //         for(let d of pvdata) {
+    //            result.push([hlpUnixToString(d.tstamp), d.power]);
+    //         }
+    //         return result;
+    //     }
+    // }
+    // pvData().then((pvData)=>{
+    //     console.log(pvData)
+    //     goChart(pvData);
+    // }).catch((onerror)=>{console.error(onerror)});
+
+
+    function goChart(data) {
+        Highcharts.chart('container', {
+            chart: {
+                type: 'spline'
+            },
+
+            title: {
+                text: 'Strom Kauf-/Verkauf'
+            },
+
+            subtitle: {
+                text: 'negativ = Verkauf'
+            },
+
+            legend: {
+                enabled: true
+            },
+
+            yAxis: {
+                title: 'Watt',
+                softMin: 0
+            },
+            tooltip: {
+            },
+
+            xAxis: {
+                tickInterval: 1800  * 1000, // 30min in milliseconds
+                tickWidth: 0,
+                gridLineWidth: 1,
+                labels: {
+                    align: 'center',
+                    x: 0,
+                    y: 14
+                }
+            },
+
+            data: {
+                rowsURL: 'http://localhost:1234/power/chart/today',
+                firstRowAsNames: false,
+                enablePolling: true,
+                name: 'Power Data'
+            }
+        });
+    }
+
+    const cats = ['06:30','06:35','06:40','06:45','06:50','06:55','07:00','07:05','07:10','07:15','07:20','07:25','07:30','07:35','07:40','07:45','07:50','07:55','08:00','08:05','08:10','08:15','08:20','08:25','08:30','08:35','08:40','08:45','08:50','08:55','09:00','09:05','09:10','09:15','09:20','09:25','09:30','09:35','09:40','09:45','09:50','09:55','10:00','10:05','10:10','10:15','10:20','10:25','10:30','10:35','10:40','10:45','10:50','10:55','11:00','11:05','11:10','11:15','11:20','11:25','11:30','11:35','11:40','11:45','11:50','11:55','12:00','12:05','12:10','12:15','12:20','12:25','12:30','12:35','12:40','12:45','12:50','12:55','13:00','13:05','13:10','13:15','13:20','13:25','13:30','13:35','13:40','13:45','13:50','13:55','14:00','14:05','14:10','14:15','14:20','14:25','14:30','14:35','14:40','14:45','14:50','14:55','15:00','15:05','15:10','15:15','15:20','15:25','15:30','15:35','15:40','15:45','15:50','15:55','16:00','16:05','16:10','16:15','16:20','16:25','16:30','16:35','16:40','16:45','16:50','16:55','17:00','17:05','17:10','17:15','17:20','17:25','17:30','17:35','17:40','17:45','17:50','17:55','18:00','18:05','18:10','18:15','18:20','18:25','18:30','18:35','18:40','18:45','18:50','18:55','19:00','19:05','19:10','19:15','19:20','19:25','19:30','19:35','19:40','19:45','19:50','19:55','20:00','20:05','20:10','20:15','20:20','20:25','20:30','20:35','20:40','20:45'];
+    const energyAxisLabel = 'energyaxislabel';
+    const dataEnergyIn = [2839,1928,2931];
+    const dataEnergyOut = [0.000,0.001,0.014,0.029,0.043,0.076,0.117,0.139,0.149,0.171,0.205,0.240,0.270,0.295,0.327,0.362,0.409,0.468,0.520,0.568,0.615,0.660,0.712,0.763,0.806,0.863,0.941,1.045,1.164,1.274,1.398,1.526,1.655,1.815,1.969,2.135,2.343,2.618,2.865,3.062,3.218,3.401,3.605,3.836,4.132,4.434,4.762,5.122,5.471,5.823,6.154,6.453,6.748,7.040,7.360,7.700,8.104,8.525,9.043,9.440,9.871,10.470,10.819,11.292,12.044,12.823,13.584,14.306,15.020,15.743,16.509,17.292,17.857,18.631,19.399,20.126,20.878,21.652,22.344,23.113,23.872,24.621,25.378,26.129,26.882,27.642,28.410,29.176,29.950,30.729,31.510,32.289,33.065,33.840,34.619,35.353,35.832,36.382,37.170,37.968,38.301,38.799,39.540,40.209,40.839,41.457,41.907,42.440,42.956,43.373,43.952,44.419,44.815,45.300,45.692,46.086,46.484,46.784,47.068,47.350,47.622,47.881,48.135,48.414,48.721,49.096,49.371,49.741,50.054,50.501,50.826,51.143,51.349,51.658,52.178,52.642,53.018,53.307,53.617,53.867,54.253,54.431,54.590,54.741,54.878,54.996,55.097,55.191,55.287,55.377,55.470,55.568,55.668,55.773,55.878,55.989,56.071,56.129,56.195,56.266,56.327,56.371,56.411,56.449,56.485,56.520,56.580,56.607,56.615,56.624,56.628,56.629];
+    const dataPowerIn = [2000,1800, 2100];
+    const dataPowerOut = [0,12,156,180,168,396,492,264,120,264,408,420,360,300,384,420,564,708,624,576,564,540,624,612,516,684,936,1248,1428,1320,1488,1536,1548,1920,1848,1992,2496,3300,2964,2364,1872,2196,2448,2772,3552,3624,3936,4320,4188,4224,3972,3588,3540,3504,3840,4080,4848,5052,6216,4764,5172,7188,4188,5676,9024,9348,9132,8664,8568,8676,9192,9396,6780,9288,9216,8724,9024,9288,8304,9228,9108,8988,9084,9012,9036,9120,9216,9192,9288,9348,9372,9348,9312,9300,9348,8808,5748,6600,9456,9576,3996,5976,8892,8028,7560,7416,5400,6396,6192,5004,6948,5604,4752,5820,4704,4728,4776,3600,3408,3384,3264,3108,3048,3348,3684,4500,3300,4440,3756,5364,3900,3804,2472,3708,6240,5568,4512,3468,3720,3000,4632,2136,1908,1812,1644,1416,1212,1128,1152,1080,1116,1176,1200,1260,1260,1332,984,696,792,852,732,528,480,456,432,420,720,324,96,108,48,12];
+    const dataTemp = [];
+    const dataVolt = [238.9,239.3,239.3,237.8,0.0,237.8,0.0,239.4,238.5,237.5,236.8,238.0,237.0,237.3,238.5,236.8,238.2,237.9,0.0,238.7,238.7,237.0,238.3,239.2,0.0,239.6,0.0,239.7,240.0,239.6,240.7,240.1,240.4,237.6,0.0,237.7,238.1,237.8,237.8,237.5,238.1,238.4,238.5,238.8,0.0,237.8,239.0,238.5,238.3,238.5,237.9,237.4,0.0,238.3,0.0,239.7,0.0,239.9,240.3,237.3,237.3,238.1,238.1,238.7,239.8,240.7,241.2,240.5,0.0,243.4,0.0,242.5,243.1,242.9,242.3,243.0,241.3,241.1,244.0,242.9,244.5,245.1,0.0,244.3,244.3,244.6,0.0,245.1,0.0,245.7,245.7,245.3,244.9,245.1,0.0,243.7,243.7,245.1,0.0,243.4,241.4,246.0,244.3,245.3,245.3,243.1,244.6,243.9,243.5,242.8,242.8,243.4,244.3,243.5,242.2,243.1,243.2,242.1,0.0,242.4,242.7,242.7,242.4,242.8,0.0,242.6,239.3,239.6,0.0,240.2,240.8,239.7,0.0,241.6,242.0,242.1,241.3,240.0,240.0,242.4,0.0,238.3,239.2,238.8,238.0,237.4,237.9,238.1,236.5,235.9,235.9,236.8,236.9,237.5,237.5,237.8,237.9,237.2,237.4,236.6,0.0,236.7,236.5,239.6,239.6,238.7,238.5,237.5,235.9,236.5,0.0,238.8];
+
+
+    function goChart2() {
+        chart = new Highcharts.Chart({
+            chart: {
+                renderTo: 'container'
+                ,spacingTop: 10
+                ,spacingBottom: 10
+                ,zoomType: 'x'
+                ,alignTicks:true
+                ,events: {
+                    click: function(event){updateTimeOfUseBands();}
+                    ,selection: function(event)
+                    {
+                        if(event.xAxis)
+                            doChartZoom(event);
+                        else
+                            doChartZoomReset(event);
+                    }
+                }
+            },
+            title: {
+                text: 'Live Production - Heuteilerweg 8 13.640kW',
+                subtitle: {
+                    ext: '25/05/22 at 20:45',
+                }
+            },
+            xAxis: [{
+                categories: cats
+                ,tickInterval:Math.ceil(cats.length/12.0)
+                ,step:Math.ceil(cats.length/12.0)
+                ,labels:{
+                }
+                ,lineWidth:0
+            }]
+            ,yAxis: [{
+                id: 'power'
+                ,labels: {formatter: function() {	return this.value + 'W';}}
+                ,title: {text:'Power'}
+                ,min:0
+            }
+                ,
+                {
+                    id: 'energy'
+                    ,title: {text:'Energy'}
+                    ,showEmpty:false
+                    ,labels: energyAxisLabel
+                    ,min:0
+                    ,opposite:true
+                    ,gridLineWidth:0
+                }
+                ,
+                {
+                    title:{text: ''}
+                    ,labels:{formatter: function() {return '';}}
+                    ,gridLineWidth:0
+                    ,min:-9.6,max:20.6
+                }
+                ,
+                {
+                    title:{text: ''}
+                    ,labels:{formatter: function() {return '';}}
+                    ,gridLineWidth:0
+                    ,min:215.9,max:247.0
+                }
+
+            ]
+            ,tooltip: {
+                useHTML:true
+                ,headerFormat:'<table style="color: darkred"><tr colspan="2"><td>{point.key}</td></tr>'
+                ,footerFormat:'</table>'
+                ,shadow:false
+                ,valueSuffix:'kWh'
+                ,valueDecimals:3
+
+                ,shared:true
+                ,pointFormat:'<tr><td nowrap style="color: greenyellow">{series.name}</td><td>{point.y}</td></tr>'
+
+            }
+            ,legend: {layout: 'horizontal'}
+            ,credits: {enabled: false}
+
+            ,plotOptions: {
+                spline: {
+                    shadow: false,
+                    states: {
+                        hover: {
+                        }
+                    },
+                    marker: {
+                        enabled: false,
+                        states: {
+                            hover: {
+                                enabled: true,
+                                symbol: 'circle',
+                                radius: 3,
+                                lineWidth: 1
+                            }
+                        }
+                    }
+                },
+                areaspline: {
+                    fillOpacity: .6,
+                    shadow: false,
+                    states: {
+                        hover: {
+                        }
+                    },
+                    marker: {
+                        enabled: false,
+                        states: {
+                            hover: {
+                                enabled: true,
+                                symbol: 'circle',
+                                radius: 3,
+                                lineWidth: 1
+                            }
+                        }
+                    }
+                }
+            },
+
+            series: [
+                {
+                    id: 'energy-import',
+                    name: 'Energy Used',
+                    type: 'areaspline',
+                    yAxis: 1,
+                    data: dataEnergyIn
+                },
+                {
+                    id: 'energy-export',
+                    name: 'Energy Generated',
+                    type: 'areaspline',
+                    yAxis: 1,
+                    data: dataEnergyOut
+                },
+                {
+                    id: 'power-import',
+                    name: 'Power Used',
+                    type: 'spline',
+                    tooltip: {valueSuffix:'W',valueDecimals:0},
+                    data: dataPowerIn
+                },
+                {
+                    id: 'power-export',
+                    name: 'Power Generated',
+                    type: 'spline',
+                    tooltip: {valueSuffix:'W',valueDecimals:0},
+                    data: dataPowerOut
+                },
+                {
+                    id: 'temperature',
+                    name: 'Temperature',
+                    color: '#FD8D3C',
+                    type: 'spline',
+                    tooltip: {valueSuffix:'C', valueDecimals:1},
+                    yAxis: 2,
+                    data: dataTemp
+                },
+                {
+                    id: 'voltage',
+                    name: 'Voltage',
+                    color: '#DF65B0',
+                    type: 'spline',
+                    tooltip: {valueSuffix:'V',valueDecimals:0},
+                    yAxis: 3,
+                    data: dataVolt
+                }
+            ]
+
+        }); // end chart
+    }
+    goChart2()
+</script>
+</body>
+</html>
+
+
+tooltip: {
+shared: true,
+formatter: function () {
+// The first returned item is the header, subsequent items are the
+// points
+let m = new Date(this.x).getMinutes();
+if(String(m).length<2) {
+m = String('0' + m);
+}
+let h = new Date(this.x).getHours();
+return [].concat(
+this.points ?
+this.points.map(function (point) {
+return h + ':' + m + '<br>' +point.series.name + ': ' + (point.y/1000).toFixed(2) + point.series.tooltipOptions.valueSuffix;
+}) : []
+);
+}
+},

@@ -8,14 +8,20 @@ export class Pvdata {
     etotal;
     eused;  // Energy used
     temperature;
+    nearest5min;
     // ETotal (System energie produktion Total in Watt)
     
     // select (Pac1 + Pac2 + Pac3) as Power, EToday, TimeStamp from SpotData where EToday>0 order by TimeStamp desc
     // select * from SpotData order by TimeStamp desc LIMIT 10;
 
-    
 
-    
+    getNearest5min() {
+        return this.nearest5min;
+    }
+
+    setNearest5min(value) {
+        this.nearest5min = value;
+    }
 
     getTimestamp() {
         return this.timestamp;

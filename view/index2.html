@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Implementation Power-Chart</title>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/series-label.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+</head>
+<body>
+
+
+<div>
+    <div id="container"></div>
+</div>
+<script>
+
+
+    function goChart(data= {}) {
+        return  new Highcharts.chart('container', {
+            chart: {
+                type: 'spline'
+            },
+            title: {
+                text: 'Stromproduktion und -bezug'
+            },
+            credits: {enabled: false},
+            tooltip: {
+                shared: true,
+                formatter: function () {
+                    let date = new Date();
+                    const timezonediff = date.getTimezoneOffset()*60;
+                    let m = new Date(this.x).getMinutes();
+                    if(String(m).length<2) {
+                        m = String('0' + m);
+                    }
+                    let h = new Date(this.x + timezonediff).getUTCHours();
+                    return [h + ':' + m].concat(
+                        this.points ?
+                            this.points.map(function (point) {
+                                return '<br>' + point.series.name + ': ' + (point.y/1000).toFixed(2) + point.series.tooltipOptions.valueSuffix;
+                            }) : []
+                    );
+                }
+            },
+            yAxis: [
+                {
+                    id: 'power',
+                    title: { text: 'Power'},
+                    labels: { formatter: function() {	return this.value/1000 + ' kW';} },
+                    softMin: 0
+                },
+                {
+                    id: 'energy',
+                    title: { text: 'Energy' },
+                    labels: { formatter: function() {	return (this.value/1000).toFixed(0) + ' kWh';} },
+                    min: 0,
+                    showEmpty: false,
+                    gridLineWidth: 0,
+                    opposite: true
+                }
+            ],
+            xAxis: {
+                type: 'datetime',
+                tickInterval: 3600  * 1000, // 30min in milliseconds
+                tickWidth: 0,
+                gridLineWidth: 1,
+                labels: {
+                    align: 'center',
+                    x: 0,
+                    y: 24
+                }
+            },
+            series: data
+        });
+    }
+
+
+    async function getChartData() {
+        const powerFetch = await fetch('http://localhost:1234/power/today');
+        if(powerFetch.status==200) {
+            let data = await powerFetch.json();
+            data = data.sort((a,b)=> a.tstamp - b.tstamp);
+            let datapoints = [];
+            for(let d of data) {
+                datapoints.push({ name: new Date(d.tstamp_interval), y: d.power, x: new Date(d.tstamp_interval).getTime() });
+            }
+            let chartdataPower = {
+                id: 'power',
+                name: 'Strombezug',
+                type: 'areaspline',
+                yAxis: 0,
+                negativeColor: '#90EE90',
+                color: '#ff9999',
+                tooltip: {
+                    valueSuffix: ' kW'
+                },
+                data: datapoints
+            }
+            let chartdataPVpower;
+            let chartdataPVenergy;
+            let datapv;
+            const pvdataFetch = await fetch('http://localhost:1234/pvdata/today');
+            if(pvdataFetch.status==200) {
+                datapv = await pvdataFetch.json();
+                datapv = datapv.sort((a,b)=> a.timestamp - b.timestamp);
+                let pvPowerDatapoints = [];
+                let pvEnergyDatapoints = [];
+                const timezonediff = new Date().getTimezoneOffset()*60;
+                for(let d of datapv) {
+                    pvPowerDatapoints.push({ name: new Date((d.timestamp-timezonediff) * 1000), y: d.power, x: ((d.timestamp-timezonediff)*1000) });
+                    pvEnergyDatapoints.push({ name: new Date((d.timestamp-timezonediff) * 1000), y: d.energy, x: ((d.timestamp-timezonediff)*1000) });
+                }
+                chartdataPVpower = {
+                    id: 'pvpower',
+                    name: 'PV-Stromproduktion',
+                    type: 'areaspline',
+                    yAxis: 0,
+                    color: '#b3e0ff',
+                    tooltip: {
+                        valueSuffix: ' kW'
+                    },
+                    data: pvPowerDatapoints
+                }
+                chartdataPVenergy = {
+                    id: 'pvenergy',
+                    name: 'PV-Energie',
+                    type: 'areaspline',
+                    yAxis: 1,
+                    color: '#ffeb99',
+                    tooltip: {
+                        valueSuffix: ' kWh'
+                    },
+                    data: pvEnergyDatapoints
+                }
+            }
+            return [chartdataPVenergy, chartdataPower, chartdataPVpower];
+        }
+    }
+    // initiale chart-anzeige
+    getChartData().then((chartData)=>{
+        goChart(chartData);
+    }).catch((onerror)=>{console.error(onerror)});
+
+    // update chart alle 5 min
+    setInterval(()=>{
+        getChartData().then((chartData)=>{
+            goChart(chartData);
+        }).catch((onerror)=>{console.error(onerror)});
+    }, 300000);
+
+
+</script>
+</body>
+</html>
