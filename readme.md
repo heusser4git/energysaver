@@ -14,16 +14,14 @@ Grafisch aufbereitet werden in der aktuellen Version:
 
 ###**INSTALLATION**
 1. Herunterladen des Energy Savers: https://github.com/heusser4git/energysaver.git
-2. Erstellen der Datenbanken `create database <DB-Name>`
-   1. power
-   2. wetter
-   3. sbfspot
-3. Einspielen der Scripts aus dem Verzeichnis ./system in die jeweilige Datenbank: `\. <path>\CreateMySQL_..._DB.sql`
-   1. Datenbank power -> CreateMySQL_Power_DB.sql
-   2. Datenbank wetter -> CreateMySQL_Wetter_DB.sql
-   3. Datenbank sbfspot -> CreateMySQL_SBFspot_DB.sql
-4. Optional: Für den Demomode werden Templatedaten aus dem Verzeichnis ./system für die PV-Daten eingespielt: `\. <path>\sbfspot.bak`
-   1. Datenbank sbfspot -> sbfspot.bak
+2. Erstellen der Datenbanken durch Einspielen der Scripts aus dem Verzeichnis ./system: `\. <path>\CreateMySQL_..._DB.sql`
+   1. Datenbank Power -> CreateMySQL_Power_DB.sql
+   2. Datenbank Wetter -> CreateMySQL_Wetter_DB.sql
+   3. Datenbank SBFspot -> CreateMySQL_SBFspot_DB.sql
+3. Optional: Für den Demomode werden Templatedaten aus dem Verzeichnis ./system für die PV-Daten eingespielt: `\. <path>\sbfspot.bak`
+   1. Datenbank SBFspot -> sbfspot.bak
+4. Optional: Für den Demomode werden Templatedaten aus dem Verzeichnis ./system für die Power-Daten eingespielt: `\. <path>\power.bak`
+   1. Datenbank Power -> power.bak
 5. Konfigruationsinformationen für die Datenbankverbindungen unter ./model/secredata ablegen:
    1. JSON-Files erstellen:
       1. dbPower.json

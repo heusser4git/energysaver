@@ -46,7 +46,7 @@ Router.get("/current", (req, res)=>{
 
 Router.get("/today", (req, res)=>{
     const nowUnix = HlpClass.getUnixNow();
-    // unix in the morning at 6:00
+    // unix in the morning at 0:00
     const unixMorning = HlpClass.getUnixMorningAt(0);
 
     let param = {"start": (unixMorning), "end": nowUnix};
