@@ -79,7 +79,7 @@
 
 
     async function getChartData() {
-        const powerFetch = await fetch('power/today');
+        const powerFetch = await fetch('../power/today');
         if(powerFetch.status==200) {
             const timezonediff = new Date().getTimezoneOffset()*60;
             let data = await powerFetch.json();
@@ -106,7 +106,7 @@
             let chartdataPVpower;
             let chartdataPVenergy;
             let datapv;
-            const pvdataFetch = await fetch('pvdata/today');
+            const pvdataFetch = await fetch('../pvdata/today');
             if(pvdataFetch.status==200) {
                 datapv = await pvdataFetch.json();
                 datapv = datapv.sort((a,b)=> a.timestamp - b.timestamp);

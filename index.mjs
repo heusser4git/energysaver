@@ -20,7 +20,7 @@ app.use("/", WebRoutes);
 const port = 1234;
 app.listen(port, () => console.log('Server ready on Port ' + port));
 
-const DEMOMODE = 1;
+const DEMOMODE = 2;
 
 const weatherApi = new Openweathermap();
 // intial einlesen des wetters

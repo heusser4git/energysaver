@@ -12,6 +12,11 @@ export default Router.get("/", (req, res)=>{
 
 
 Router.get("/:file", (req, res)=>{
-    console.log('route /app')
+    console.log('route /:file ' + req.params.file)
     res.sendFile(path.join(process.cwd() + '/view/' + req.params.file));
+});
+
+Router.get("/uh/:file", (req, res)=>{
+    console.log('route /:file ' + req.params.file)
+    res.sendFile(path.join(process.cwd() + '/view/uh/' + req.params.file));
 });

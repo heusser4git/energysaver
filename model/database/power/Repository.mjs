@@ -41,7 +41,7 @@ export class Repository {
         if (filter instanceof Object && filter.start > 10000 && filter.end > 10000) {
             where += ' where tstamp >= ' + filter.start + ' AND tstamp <= ' + filter.end;
         }
-        let sql = "SELECT tstamp, mac, power, power1, pf1, current1, voltage1, isvalid1, total1, total_returned1, power2, pf2, current2, voltage2, isvalid2, total2, total_returned2, power3, pf3, current3, voltage3, isvalid3, total3, total_returned3, DATE_ADD('1000-01-01 00:00:00', Interval CEILING(TIMESTAMPDIFF(MINUTE, '1000-01-01 00:00:00', FROM_UNIXTIME(tstamp)) / " + interval +") * " + interval + " minute) AS tstamp_interval, AVG(power) as avgPower FROM tblPower " + where +" GROUP BY tstamp_interval";
+        let sql = "SELECT tstamp, mac, power, power1, pf1, current1, voltage1, isvalid1, total1, total_returned1, power2, pf2, current2, voltage2, isvalid2, total2, total_returned2, power3, pf3, current3, voltage3, isvalid3, total3, total_returned3, DATE_ADD('1000-01-01 00:00:00', Interval CEILING(TIMESTAMPDIFF(MINUTE, '1000-01-01 00:05:00', FROM_UNIXTIME(tstamp)) / " + interval +") * " + interval + " minute) AS tstamp_interval, AVG(power) as avgPower FROM tblPower " + where +" GROUP BY tstamp_interval";
         query = sql + ' ORDER BY tstamp DESC';
         console.log(query)
         if (query.length > 10) {

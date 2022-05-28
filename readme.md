@@ -138,7 +138,10 @@ _TIPP: Korrigiere erst die Test-Pfade in package.json unter `"test:Divers":`_
 ~~- installation~~
   ~~- create database script~~
   ~~- anleitung~~
-  - tests
+  ~~- tests~~
+  - zeitverschiebung power und pv im chart
+  - vollständigkeit der wetterdaten (icon)???
+  - 
 
 
 
