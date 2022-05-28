@@ -2,7 +2,7 @@ import {Pvdata} from "../Pvdata.mjs";
 import {Querygenerator} from "./Querygenerator.mjs";
 
 export class PvdataQuery {
-    constructor(table = "vwspotdata") {
+    constructor(table = "vwSpotData") {
         this.table = table;
     }
     sqlQuery(pvdata) {

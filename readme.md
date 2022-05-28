@@ -13,17 +13,17 @@ Grafisch aufbereitet werden in der aktuellen Version:
    1. Node-Module gemäss _package.json_
 
 ###**INSTALLATION**
-1. Erstellen der Datenbanken `create database <DB-Name>`
+1. Herunterladen des Energy Savers: https://github.com/heusser4git/energysaver.git
+2. Erstellen der Datenbanken `create database <DB-Name>`
    1. power
    2. wetter
    3. sbfspot
-2. Einspielen der Scripts aus dem Verzeichnis ./system in die jeweilige Datenbank: `\. <path>\CreateMySQL_..._DB.sql`
+3. Einspielen der Scripts aus dem Verzeichnis ./system in die jeweilige Datenbank: `\. <path>\CreateMySQL_..._DB.sql`
    1. Datenbank power -> CreateMySQL_Power_DB.sql
    2. Datenbank wetter -> CreateMySQL_Wetter_DB.sql
    3. Datenbank sbfspot -> CreateMySQL_SBFspot_DB.sql
-3. Optional: Für den Demomode werden Templatedaten aus dem Verzeichnis ./system für die PV-Daten eingespielt: `\. <path>\sbfspot.bak`
+4. Optional: Für den Demomode werden Templatedaten aus dem Verzeichnis ./system für die PV-Daten eingespielt: `\. <path>\sbfspot.bak`
    1. Datenbank sbfspot -> sbfspot.bak
-4. Herunterladen des Energy Savers: https://github.com/heusser4git/energysaver.git
 5. Konfigruationsinformationen für die Datenbankverbindungen unter ./model/secredata ablegen:
    1. JSON-Files erstellen:
       1. dbPower.json
@@ -54,7 +54,9 @@ Grafisch aufbereitet werden in der aktuellen Version:
          "port": "80",
          "protocol": "http"
          }`
-7. Server starten:
+7. Module installieren: `npm install axios body-parser express mysql2`
+8. Optional: Modul mocha für die UnitTests installieren: `npm install mocha`
+9. Server starten:
    1. Root-Verzeichnis der App:
       1. `npm start`
 
