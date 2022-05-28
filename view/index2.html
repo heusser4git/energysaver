@@ -81,11 +81,15 @@
     async function getChartData() {
         const powerFetch = await fetch('http://localhost:1234/power/today');
         if(powerFetch.status==200) {
+            const timezonediff = new Date().getTimezoneOffset()*60;
             let data = await powerFetch.json();
             data = data.sort((a,b)=> a.tstamp - b.tstamp);
             let datapoints = [];
             for(let d of data) {
-                datapoints.push({ name: new Date(d.tstamp_interval), y: d.power, x: new Date(d.tstamp_interval).getTime() });
+                // zeitzohne einbeziehen
+                let date = new Date(d.tstamp_interval);
+                date = (date.getTime()/1000)-timezonediff;
+                datapoints.push({ name: new Date(date*1000), y: d.power, x: date*1000 });
             }
             let chartdataPower = {
                 id: 'power',
@@ -108,7 +112,7 @@
                 datapv = datapv.sort((a,b)=> a.timestamp - b.timestamp);
                 let pvPowerDatapoints = [];
                 let pvEnergyDatapoints = [];
-                const timezonediff = new Date().getTimezoneOffset()*60;
+
                 for(let d of datapv) {
                     pvPowerDatapoints.push({ name: new Date((d.timestamp-timezonediff) * 1000), y: d.power, x: ((d.timestamp-timezonediff)*1000) });
                     pvEnergyDatapoints.push({ name: new Date((d.timestamp-timezonediff) * 1000), y: d.energy, x: ((d.timestamp-timezonediff)*1000) });
