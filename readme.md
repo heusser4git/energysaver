@@ -56,7 +56,7 @@ Grafisch aufbereitet werden in der aktuellen Version:
          }`
 7. Server starten:
    1. Root-Verzeichnis der App:
-      1. `node ./index.mjs`
+      1. `npm start`
 
 
 ###**REST-API**
