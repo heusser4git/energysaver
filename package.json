@@ -1,19 +1,21 @@
 {
-  "name": "energysaver1",
+  "name": "energysaver",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "index.mjs",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "npm run test:Divers",
+    "test:Divers": "c:/code/energysaver/node_modules/.bin/mocha --reporter spec c:/code/energysaver/test/*.test.mjs",
+    "start": "node index.mjs"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Urs Heusser",
+  "license": "WTFPL",
   "dependencies": {
     "axios": "^0.27.2",
     "body-parser": "^1.20.0",
     "express": "^4.18.1",
-    "mysql": "^2.18.1",
+    "mocha": "^10.0.0",
     "mysql2": "^2.3.3"
   }
 }

@@ -107,6 +107,13 @@ Gibt alle Power-Eintraege waehrend einer definierten Periode aus
 
 Holt den aktuellsten Power-Eintrag bis max. 5min zurueck oder gibt ein leeres Objekt aus
 
+
+###**UNIT TESTING**
+Start Unit-Tests with `npm test` in the Root-Director
+
+_TIPP: Korrigiere erst die Test-Pfade in package.json unter `"test:Divers":`_
+
+
 .................................................................................
 
 // TODO

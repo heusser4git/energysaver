@@ -76,10 +76,18 @@ Date.prototype.getFullMinutes = function () {
 
 // Unix-Timestamp to CH-DateTime-String
 function unixToDateTimeString(unix) {
-    // TODO Monat muss auch zweistellig sein...
     let date = new Date(unix * 1000);
-    return date.getDate() + "." + date.getMonth() + "." + date.getFullYear() + " " + unixToTimeString(unix);
+    let month = date.getMonth();
+    if(String(month).length==1) {
+        month = '0' + month;
+    }
+    let day = date.getDay();
+    if(String(day).length==1) {
+        day = '0' + day;
+    }
+    return date.getDay() + "." + month + "." + date.getFullYear() + " " + unixToTimeString(unix);
 }
+
 function unixToTimeString(unix) {
     let date = new Date(unix * 1000);
     return date.getHours() + ":" + date.getFullMinutes();
