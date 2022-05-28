@@ -89,6 +89,10 @@ export class Openweathermap {
                     weather.setPop(entry.pop);
                     weather.setRain(entry.rain);
                     weather.setUvi(entry.uvi);
+                    let w = entry.weather[0];
+                    weather.setMain(w.main);
+                    weather.setDescription(w.description);
+                    weather.setIcon(w.icon);
 
                     weathers.push(weather);
                 }
