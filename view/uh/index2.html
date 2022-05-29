@@ -81,6 +81,7 @@
 
 
         async function getChartData() {
+            let chartdatas = [];
             const powerFetch = await fetch('../power/today');
             if(powerFetch.status==200) {
                 const timezonediff = new Date().getTimezoneOffset()*60;
@@ -138,9 +139,10 @@
                             datapointsConsumtion.push({ name: date, y: consumtionPower, x: unixDate})
                         }
                     }
-                    let chartdataPower = {
+                    chartdatas = [{
                         id: 'power',
                         name: 'Strombezug',
+                        visible: false,
                         type: 'areaspline',
                         yAxis: 0,
                         negativeColor: '#90EE90',
@@ -152,8 +154,7 @@
                             enabled: false
                         },
                         data: datapointsPower
-                    }
-                    chartdataPowerSale = {
+                    }, {
                         id: 'power',
                         name: 'Stromverkauf',
                         type: 'areaspline',
@@ -167,8 +168,7 @@
                             enabled: false
                         },
                         data: datapointsPowerSale
-                    }
-                    chartdataPowerPurchase = {
+                    }, {
                         id: 'power',
                         name: 'Stromkauf',
                         type: 'areaspline',
@@ -182,8 +182,7 @@
                             enabled: false
                         },
                         data: datapointsPowerPurchase
-                    }
-                    chartdataPVpower = {
+                    }, {
                         id: 'pvpower',
                         name: 'PV-Stromproduktion',
                         type: 'areaspline',
@@ -196,8 +195,7 @@
                             enabled: false
                         },
                         data: pvPowerDatapoints
-                    }
-                    chartdataPVenergy = {
+                    }, {
                         id: 'pvenergy',
                         name: 'PV-Energie',
                         type: 'spline',
@@ -211,8 +209,7 @@
                             enabled: false
                         },
                         data: pvEnergyDatapoints
-                    };
-                    chartdataPowerConsumption = {
+                    }, {
                         id: 'consumpower',
                         name: 'Stromverbrauch',
                         type: 'spline',
@@ -226,9 +223,9 @@
                             enabled: false
                         },
                         data: datapointsConsumtion
-                    }
+                    }];
                 }
-                return [chartdataPVenergy, chartdataPVpower, chartdataPowerSale, chartdataPowerPurchase, chartdataPowerConsumption];
+                return chartdatas;
             }
         }
         // initiale chart-anzeige

@@ -92,7 +92,7 @@ export class Openweathermap {
                     let w = entry.weather[0];
                     weather.setMain(w.main);
                     weather.setDescription(w.description);
-                    weather.setIcon(w.icon);
+                    weather.setIcon(w.icon);    // https://openweathermap.org/weather-conditions#How-to-get-icon-URL
 
                     weathers.push(weather);
                 }
