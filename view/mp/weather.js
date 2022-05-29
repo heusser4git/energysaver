@@ -1,5 +1,8 @@
-
+let now = new Date()
+let days = ["Sonntag", "Montag", "Dienstag", "Mittwoch", "Donerstag", "Freitag", "Samstag"]
+let numDay = now.getDay()
 if (typeof window!== 'undefined'){
+
     for (let i = 0; i < 7; i++) {
         let newLi = document.createElement("li")
         let divWD = document.createElement("div")
@@ -8,7 +11,12 @@ if (typeof window!== 'undefined'){
         let divWT = document.createElement("div")
 
         divWD.className = "weather-day"
-        divWD.innerText = "Montag"
+        if (i === 0){
+            divWD.innerText = "Heute"
+        } else{
+            divWD.innerText = days[numDay + i]
+        }
+
 
         divWI.className = "weather-icon"
         image.src = "http://openweathermap.org/img/wn/02d@2x.png"
@@ -21,10 +29,6 @@ if (typeof window!== 'undefined'){
         document.getElementById("table-weather").appendChild(newLi)
     }
 }
-
-
-
-
     /*
 (function (){
     let tableSpawn = document.getElementById('table-weather');
