@@ -3,7 +3,7 @@ Der Energy Saver sammelt Daten über Stromproduktion, aktuellen Strombezug/-rüc
 Grafisch aufbereitet werden in der aktuellen Version:
 - Die aktuelle Stromproduktion
 - Der aktuelle Strombezug/-rücklieferung
-- Die Stromproduktion der letzten 12 Stunden als Chart
+- Die Energie- und Stromproduktion, der Stromkauf und -verkauf des aktuellen Tages als Chart
 - Die Wetterprognose der nächsten Tage
 
 ###**VORAUSSETZUNGEN**
