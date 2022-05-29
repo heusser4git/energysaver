@@ -20,3 +20,8 @@ Router.get("/uh/:file", (req, res)=>{
     console.log('route /:file ' + req.params.file)
     res.sendFile(path.join(process.cwd() + '/view/uh/' + req.params.file));
 });
+
+Router.get("/mp/:file", (req, res)=>{
+    console.log('route /:file ' + req.params.file)
+    res.sendFile(path.join(process.cwd() + '/view/mp/' + req.params.file));
+});

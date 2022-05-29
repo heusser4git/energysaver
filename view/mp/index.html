@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    <script src="chart.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Energy Saver 1.0</h1>
+    </header>
+    <main>
+        <article class="Geraete">
+            <h1>2300 Watt</h1>
+            <h2>Waschmaschine (2300W) icon xJ</h2>
+            <h2>Geschirrspüler (1250W) icon xJ</h2>
+            <h2>Wärmepumpe (4550W) icon xJ</h2> 
+        </article>
+        <article class="PVA">
+            <h1>Prduktion heute</h1>
+            <div id="container"></div>
+        </article>
+        <article class="weather">
+            <h1>Wetter</h1>
+            <div class="six-days-forecast">
+                <ul id="table-weather" class="table-weather"></ul>
+            </div>
+        </article>
+    </main>
+    <footer>
+    </footer>
+    <script src="weather.js"></script>
+</body>
+</html>
