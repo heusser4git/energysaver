@@ -16,8 +16,9 @@ Grafisch aufbereitet werden in der aktuellen Version:
 1. Herunterladen des Energy Savers: https://github.com/heusser4git/energysaver.git
 2. Erstellen der Datenbanken durch Einspielen der Scripts aus dem Verzeichnis ./system: `\. <path>\CreateMySQL_..._DB.sql`
    1. Datenbank Power -> CreateMySQL_Power_DB.sql
-   2. Datenbank Wetter -> CreateMySQL_Wetter_DB.sql
-   3. Datenbank SBFspot -> CreateMySQL_SBFspot_DB.sql
+   2. Datenbank Device -> CreateMySQL_Device_DB.sql
+   3. Datenbank Wetter -> CreateMySQL_Wetter_DB.sql
+   4. Datenbank SBFspot -> CreateMySQL_SBFspot_DB.sql
 3. Optional: Für den Demomode werden Templatedaten aus dem Verzeichnis ./system für die PV-Daten eingespielt: `\. <path>\sbfspot.bak`
    1. Datenbank SBFspot -> sbfspot.bak
 4. Optional: Für den Demomode werden Templatedaten aus dem Verzeichnis ./system für die Power-Daten eingespielt: `\. <path>\power.bak`
@@ -25,8 +26,9 @@ Grafisch aufbereitet werden in der aktuellen Version:
 5. Konfigruationsinformationen für die Datenbankverbindungen unter ./model/secredata ablegen:
    1. JSON-Files erstellen:
       1. dbPower.json
-      2. dbSBFspot.json
-      3. dbWeather.json
+      2. dbDevice.json
+      3. dbSBFspot.json
+      4. dbWeather.json
       ![](./readme/readme_secretdata.png "Secretdata-Folder Printscreen")
    2. Jeweils die DB-Verbinungsinformation als JSON-Objekt in den Files ablegen in der Form:
    3. `{
@@ -106,6 +108,12 @@ Gibt alle Power-Eintraege waehrend einer definierten Periode aus
 `http://<localhost>:<port>/power/current`
 
 Holt den aktuellsten Power-Eintrag bis max. 5min zurueck oder gibt ein leeres Objekt aus
+
+**_Geräte_**
+
+`http://<localhost>:<port>/device/`
+
+Gibt alle Geräte aus
 
 
 ###**UNIT TESTING**

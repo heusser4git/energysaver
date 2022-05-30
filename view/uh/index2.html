@@ -126,20 +126,86 @@
                         // pv energy
                         pvEnergyDatapoints.push({ name: date, y: d.energy, x: unixDate });
 
-                        // get the power entry from the actual datapoint
-                        let actualDatapointConsumptionArray = datapointsPower.filter(value => value.x === unixDate);
-                        if(actualDatapointConsumptionArray.length===1) {
-                            let actualDatapointConsumption = actualDatapointConsumptionArray[0];
-                            let power = actualDatapointConsumption.y;
+                        // // get the power entry from the actual datapoint
+                        // let actualDatapointConsumptionArray = datapointsPower.filter(value => value.x === unixDate);
+                        // if(actualDatapointConsumptionArray.length===1) {
+                        //     let actualDatapointConsumption = actualDatapointConsumptionArray[0];
+                        //     let power = actualDatapointConsumption.y;
+                        //
+                        //     let consumtionPower = -(-power - pvPower);
+                        //     if(consumtionPower<0) {
+                        //         consumtionPower = 0;
+                        //     }
+                        //
+                        //     datapointsConsumtion.push({ name: date, y: consumtionPower, x: unixDate})
+                        // }
+                    }
+                    for(let powerDataPoint of datapointsPower) {
+                        let date = powerDataPoint.name;
+                        let unixDate = powerDataPoint.x;
+                        let power = powerDataPoint.y;
+
+                        // get the pvPower entry from the actual datapoint
+                        let actualDatapointPvPowerArray = pvPowerDatapoints.filter(entry => entry.x === unixDate);
+                        if(actualDatapointPvPowerArray.length===1) {
+                            let actualDatapointPvPower = actualDatapointPvPowerArray[0];
+                            let pvPower = actualDatapointPvPower.y;
 
                             let consumtionPower = -(-power - pvPower);
-                            if(consumtionPower<0)
+                            if(consumtionPower<0) {
                                 consumtionPower = 0;
+                            }
 
                             datapointsConsumtion.push({ name: date, y: consumtionPower, x: unixDate})
                         }
                     }
-                    chartdatas = [{
+                    chartdatas = [ {
+                        index: 0,
+                        id: 'pvenergy',
+                        name: 'PV-Energie',
+                        type: 'spline',
+                        yAxis: 1,
+                        color: '#00b300',
+                        lineWidth: 4,
+                        tooltip: {
+                            valueSuffix: ' kWh'
+                        },
+                        marker: {
+                            enabled: false
+                        },
+                        data: pvEnergyDatapoints
+                    }, {
+                        index: 1,
+                        id: 'pvpower',
+                        name: 'PV-Stromproduktion',
+                        type: 'areaspline',
+                        yAxis: 0,
+                        color: '#ffe066',
+                        opacity: 0.6,
+                        tooltip: {
+                            valueSuffix: ' kW'
+                        },
+                        marker: {
+                            enabled: false
+                        },
+                        data: pvPowerDatapoints
+                    }, {
+                        index: 2,
+                        id: 'power',
+                        name: 'Stromverkauf',
+                        type: 'areaspline',
+                        yAxis: 0,
+                        color: '#90EE90',
+                        opacity: 0.8,
+                        tooltip: {
+                            valueSuffix: ' kW'
+                        },
+                        marker: {
+                            enabled: false
+                        },
+                        data: datapointsPowerSale
+                    }, {
+                        index: 3,
                         id: 'power',
                         name: 'Strombezug',
                         visible: false,
@@ -155,26 +221,12 @@
                         },
                         data: datapointsPower
                     }, {
-                        id: 'power',
-                        name: 'Stromverkauf',
-                        type: 'areaspline',
-                        yAxis: 0,
-                        color: '#90EE90',
-                        opacity: 0.8,
-                        tooltip: {
-                            valueSuffix: ' kW'
-                        },
-                        marker: {
-                            enabled: false
-                        },
-                        data: datapointsPowerSale
-                    }, {
+                        index: 4,
                         id: 'power',
                         name: 'Stromkauf',
                         type: 'areaspline',
                         yAxis: 0,
                         color: '#ff4d4d',
-                        opacity: 0.8,
                         tooltip: {
                             valueSuffix: ' kW'
                         },
@@ -183,33 +235,7 @@
                         },
                         data: datapointsPowerPurchase
                     }, {
-                        id: 'pvpower',
-                        name: 'PV-Stromproduktion',
-                        type: 'areaspline',
-                        yAxis: 0,
-                        color: '#ffe066',
-                        tooltip: {
-                            valueSuffix: ' kW'
-                        },
-                        marker: {
-                            enabled: false
-                        },
-                        data: pvPowerDatapoints
-                    }, {
-                        id: 'pvenergy',
-                        name: 'PV-Energie',
-                        type: 'spline',
-                        yAxis: 1,
-                        color: '#00b300',
-                        lineWidth: 4,
-                        tooltip: {
-                            valueSuffix: ' kWh'
-                        },
-                        marker: {
-                            enabled: false
-                        },
-                        data: pvEnergyDatapoints
-                    }, {
+                        index: 5,
                         id: 'consumpower',
                         name: 'Stromverbrauch',
                         type: 'spline',

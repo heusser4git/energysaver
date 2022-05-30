@@ -3,11 +3,11 @@ import bodyParser from 'body-parser';
 import WetterRoutes from './control/routes/wetterRoutes.mjs';
 import PvDataRoutes from './control/routes/pvDataRoutes.mjs';
 import PowerRoutes from './control/routes/powerRoutes.mjs';
+import DeviceRoutes from './control/routes/deviceRoutes.mjs';
 import WebRoutes from './control/routes/webRoutes.mjs';
 import {Openweathermap} from "./model/restsource/Openweathermap.mjs";
 import Shelly from "./model/restsource/Shelly.mjs";
 import {Repository as powerRepo} from "./model/database/power/Repository.mjs";
-import {Repository as pvRepo} from "./model/database/sbfspot/Repository.mjs";
 import Demosbfspot from "./control/demodatagenerator/Demossbfspot.mjs";
 
 const app = express();
@@ -15,6 +15,7 @@ app.use(bodyParser.json());
 app.use("/wetter", WetterRoutes);
 app.use("/pvData", PvDataRoutes);
 app.use("/power", PowerRoutes);
+app.use("/device", DeviceRoutes);
 app.use("/", WebRoutes);
 
 const port = 1234;
