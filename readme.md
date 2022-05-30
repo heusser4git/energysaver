@@ -137,16 +137,16 @@ _TIPP: Korrigiere erst die Test-Pfade in package.json unter `"test:Divers":`_
 ~~- openweathermap (key remove)~~
 ~~- Shelly (secretdata implementation)~~
 
-- Devices implementieren (Waschmaschine, ...)
-  - DB für devices
-  - Object/Repo für devices
-  - REST-route für devices
+- ~~Devices implementieren (Waschmaschine, ...)~~
+  - ~~DB für devices~~
+  - ~~Object/Repo für devices~~
+  - ~~REST-route für devices~~
 ~~- installation~~
   ~~- create database script~~
   ~~- anleitung~~
   ~~- tests~~
-  - zeitverschiebung power und pv im chart
-  - vollständigkeit der wetterdaten (icon)???
+  - ~~zeitverschiebung power und pv im chart~~
+  - ~~vollständigkeit der wetterdaten (icon)???~~
   - 
 
 
