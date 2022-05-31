@@ -11,8 +11,13 @@ header {
 body {
     font-family: 'Inter', sans-serif;
     font-weight: 100;
+    color: white;
     margin: 0;
     padding: 0;
+    background-image: url("./img/Background.webp");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
 }
 
 main {
@@ -21,6 +26,27 @@ main {
 }
 
 footer {}
+article.devices{
+
+}
+
+div.device{
+    font-size: 20px;
+}
+div.device-name{
+    float: left;
+    width: 150px;
+
+}
+div.device-power{
+    float: left;
+    width: 80px;
+}
+div.device-icon{}
+img.device-img{
+    height: 15px;
+}
+
 article.PVA {
     width: 100%;
 }
@@ -28,6 +54,7 @@ article.PVA {
 ul.table-weather{
     list-style: none;
     text-align: center;
+    padding-left: 0px;
 }
 ul.table-weather li{
     float: left;
@@ -36,5 +63,25 @@ ul.table-weather li{
     background-color: rgba(0, 123, 255, 0.9);
     color: white;
     padding: 10px;
+}
+div.weather-temperatur{
+    width: 100%;
+}
+div.weather-temp-min{
+    float: left;
+    width: 30%;
+    margin-top: 6px;
+    margin-left: 20%;
+    background: gray;
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+div.weather-temp-max{
+    float: left;
+    width: 30%;
+    background: orange;
+    margin-right: 20%;
+    padding-top: 2px;
+    padding-bottom: 2px;
 }
 
