@@ -9,6 +9,7 @@ import {Openweathermap} from "./model/restsource/Openweathermap.mjs";
 import Shelly from "./model/restsource/Shelly.mjs";
 import {Repository as powerRepo} from "./model/database/power/Repository.mjs";
 import Demosbfspot from "./control/demodatagenerator/Demossbfspot.mjs";
+import Demopower from "./control/demodatagenerator/Demopower.mjs";
 
 const app = express();
 app.use(bodyParser.json());
@@ -34,13 +35,17 @@ const intervalWeather = setInterval(() => { weatherApi.run() }, 3600000);
 if(DEMOMODE===1) {
     // DEMOMODE FOR SCHOOL
     // create demo data for power-messurement
-    const repoPower = new powerRepo();
-    const intervalPowerDemo = setInterval(() => {
-        let promise = repoPower.createDemoPower(new Date().getTime()/1000);
-        promise.catch((onerror)=>{
-            console.error(onerror)
-        })
-    }, 5000);
+    // const repoPower = new powerRepo();
+    // const intervalPowerDemo = setInterval(() => {
+    //     let promise = repoPower.createDemoPower(new Date().getTime()/1000);
+    //     promise.catch((onerror)=>{
+    //         console.error(onerror)
+    //     })
+    // }, 5000);
+
+    let pDemo = new Demopower();
+    pDemo.deleteTodaysPowerData();
+    pDemo.createDemoDataFromTemplatePowerDay();
 
     let d = new Demosbfspot();
     d.deleteTodaysPVData();

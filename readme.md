@@ -147,7 +147,7 @@ _TIPP: Korrigiere erst die Test-Pfade in package.json unter `"test:Divers":`_
   ~~- tests~~
   - ~~zeitverschiebung power und pv im chart~~
   - ~~vollständigkeit der wetterdaten (icon)???~~
-  - 
+  ~~- implement more realistic power demo data~~
 
 
 
