@@ -1,6 +1,7 @@
 export class Device {
     id;
     name;
+    nameshort;
     power;
 
 
@@ -18,6 +19,14 @@ export class Device {
 
     setName(value) {
         this.name = value;
+    }
+
+    getNameshort() {
+        return this.nameshort;
+    }
+
+    setNameshort(value) {
+        this.nameshort = value;
     }
 
     getPower() {

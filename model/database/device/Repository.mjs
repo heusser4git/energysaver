@@ -43,6 +43,7 @@ export class Repository {
         let device = new Device();
         device.setId(entry.id);
         device.setName(entry.name);
+        device.setNameshort(entry.nameshort)
         device.setPower(entry.power);
         console.log(device)
 
