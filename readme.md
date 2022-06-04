@@ -117,44 +117,4 @@ Gibt alle Geräte aus
 
 
 ###**UNIT TESTING**
-Start Unit-Tests with `npm test` in the Root-Director
-
-_TIPP: Korrigiere erst die Test-Pfade in package.json unter `"test:Divers":`_
-
-
-.................................................................................
-
-// TODO
-~~- routen für weather~~
-~~- daten von shelly abholen~~
-~~- routen für shelly~~
-~~- secretdata einbinden~~
-~~- test mit express: website ausgeben~~
-
-~~- close connections!!!~~
-~~- demodatageneratoren: ~~sbfspot~~, ~~shelly~~~~
-- create helper class
-~~- openweathermap (key remove)~~
-~~- Shelly (secretdata implementation)~~
-
-- ~~Devices implementieren (Waschmaschine, ...)~~
-  - ~~DB für devices~~
-  - ~~Object/Repo für devices~~
-  - ~~REST-route für devices~~
-~~- installation~~
-  ~~- create database script~~
-  ~~- anleitung~~
-  ~~- tests~~
-  - ~~zeitverschiebung power und pv im chart~~
-  - ~~vollständigkeit der wetterdaten (icon)???~~
-  ~~- implement more realistic power demo data~~
-
-
-
-DOKU
-fs -> What is Synchronous and Asynchronous approach? -> https://www.geeksforgeeks.org/node-js-file-system/
-
-5min interval mit SQL:
-https://www.codelabs365.com/mysql-group-data-by-15-minutes/
-
-problems with timezoneshift...
+Start Unit-Tests with `npm run test` in the Root-Director

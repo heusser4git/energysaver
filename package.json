@@ -5,7 +5,7 @@
   "main": "index.mjs",
   "scripts": {
     "test": "npm run test:Divers",
-    "test:Divers": "c:/code/energysaver/node_modules/.bin/mocha --reporter spec c:/code/energysaver/test/*.test.mjs",
+    "test:Divers": "mocha --reporter spec ./test/*.test.mjs",
     "start": "node index.mjs"
   },
   "keywords": [],
