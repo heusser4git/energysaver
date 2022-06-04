@@ -1,5 +1,4 @@
 import express from 'express';
-import bodyParser from 'body-parser';
 import WetterRoutes from './control/routes/wetterRoutes.mjs';
 import PvDataRoutes from './control/routes/pvDataRoutes.mjs';
 import PowerRoutes from './control/routes/powerRoutes.mjs';
@@ -12,7 +11,6 @@ import Demosbfspot from "./control/demodatagenerator/Demossbfspot.mjs";
 import Demopower from "./control/demodatagenerator/Demopower.mjs";
 
 const app = express();
-app.use(bodyParser.json());
 app.use("/wetter", WetterRoutes);
 app.use("/pvData", PvDataRoutes);
 app.use("/power", PowerRoutes);
