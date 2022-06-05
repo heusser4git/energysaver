@@ -13,18 +13,17 @@ Router.get("/:start-:end", (req, res)=>{
     data.then((success)=>{
         res.send(success);
     }).catch((failure) => {
-        console.log(failure);
+        console.error(failure);
     });
 });
 
 // http://localhost:<port>/power/
 export default Router.get("/", (req, res)=>{
-    console.log("route /");
     const data = repo.getPowerData({});
     data.then((success)=>{
         res.send(success);
     }).catch((failure) => {
-        console.log(failure);
+        console.error(failure);
     });
 });
 
@@ -44,11 +43,11 @@ Router.get("/current", (req, res)=>{
     });
 });
 
+// http://localhost:<port>/power/today
 Router.get("/today", (req, res)=>{
     const nowUnix = HlpClass.getUnixNow();
     // unix in the morning at 0:00
     const unixMorning = HlpClass.getUnixMorningAt(0);
-
     let param = {"start": (unixMorning), "end": nowUnix};
     const data = repo.getRawPowerDataGrouped(param);
     data.then((powerdata) => {

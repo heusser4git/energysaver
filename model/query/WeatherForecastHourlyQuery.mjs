@@ -5,6 +5,7 @@ export class WeatherForecastHourlyQuery {
     constructor(table = "tblWetter") {
         this.table = table;
     }
+
     sqlQuery(weather) {
         const query = new Querygenerator(this.table);
         if(weather instanceof Weather) {
@@ -32,5 +33,4 @@ export class WeatherForecastHourlyQuery {
         }
         return false;
     }
-
 }

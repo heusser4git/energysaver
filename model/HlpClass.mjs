@@ -20,18 +20,6 @@ export class HlpClass{
         return 0;
     }
 
-    // TODO loeschen wenn nicht gebraucht, sonst unit-Test schreiben
-    static getRandNum(vorkommastellen=2, nachkommastellen=0) {
-        const vFaktor = Math.pow(10, vorkommastellen);
-        const vorkomma = Number(Math.random().toString().slice(0, (2+vorkommastellen)))*vFaktor;
-        const nachkomma = Number(Math.random().toString().slice(2, 2+nachkommastellen));
-        if(!isNaN(Number(vorkomma + '.' + nachkomma) )) {
-            return Number(vorkomma + '.' + nachkomma);
-        } else {
-            return this.getRandNum(vorkommastellen, nachkommastellen);
-        }
-    }
-
     /**
      * Returns the actual Unixtimestamp
      * @returns {*|number}
@@ -48,7 +36,6 @@ export class HlpClass{
      */
     static getUnixMorningAt(hour=6, minute=0) {
         let now = new Date();
-        let timezonediff = -now.getTimezoneOffset()*60;
         now.setHours(hour);
         now.setMinutes(minute);
         now.setSeconds(0);

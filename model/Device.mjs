@@ -4,7 +4,6 @@ export class Device {
     nameshort;
     power;
 
-
     getId() {
         return this.id;
     }

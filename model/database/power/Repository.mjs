@@ -14,6 +14,7 @@ export class Repository {
         }
         this.pool = this.connection.pool();
     }
+
     getRawPowerData(filter) {
         let query = '';
         // from-to with timestamp
@@ -22,8 +23,6 @@ export class Repository {
             sql += ' where tstamp >= ' + filter.start + ' AND tstamp <= ' + filter.end;
         }
         query = sql + ' ORDER BY tstamp DESC';
-        console.log(query)
-
         if (query.length > 10) {
             return new Promise((resolve, reject) => {
                this.pool.query(query, (error, elements) => {
@@ -44,7 +43,6 @@ export class Repository {
         }
         let sql = "SELECT tstamp, mac, power, power1, pf1, current1, voltage1, isvalid1, total1, total_returned1, power2, pf2, current2, voltage2, isvalid2, total2, total_returned2, power3, pf3, current3, voltage3, isvalid3, total3, total_returned3, DATE_ADD('1000-01-01 00:00:00', Interval CEILING(TIMESTAMPDIFF(MINUTE, '1000-01-01 00:05:00', FROM_UNIXTIME(tstamp)) / " + interval +") * " + interval + " minute) AS tstamp_interval, AVG(power) as avgPower FROM tblPower " + where +" GROUP BY tstamp_interval";
         query = sql + ' ORDER BY tstamp DESC';
-        console.log(query)
         if (query.length > 10) {
             return new Promise((resolve, reject) => {
                 this.pool.query(query, (error, elements) => {
@@ -123,76 +121,22 @@ export class Repository {
             return new Promise((resolve, reject) => {
                 this.pool.query(query, (error, response) => {
                     if (error) {
-                        console.log('ERROR hier')
                         return reject(error);
                     }
-                    console.log('addPower: ' + response.affectedRows)
                     return resolve(response);
                 });
             });
         }
     }
-    //
-    // createDemoPower(unix) {
-    //     let power = new Power();
-    //     power.setTstamp(unix);
-    //     power.setMac('BCFF4DFD1C7C');
-    //     power.setPower(this.hlpGetRandNum(4));
-    //
-    //     let phase1 = new Power();
-    //     phase1.setPower(this.hlpGetRandNum(4));
-    //     phase1.setPowerfactor(this.hlpGetRandNum(0,2));
-    //     phase1.setCurrent(this.hlpGetRandNum(1,2));
-    //     phase1.setVoltage(238);
-    //     phase1.setIsvalid(1);
-    //     phase1.setTotal(this.hlpGetRandNum(5));
-    //     phase1.setTotalreturned(this.hlpGetRandNum(6));
-    //     power.addPhase(phase1);
-    //
-    //     let phase2 = new Power();
-    //     phase2.setPower(this.hlpGetRandNum(4));
-    //     phase2.setPowerfactor(this.hlpGetRandNum(0,2));
-    //     phase2.setCurrent(this.hlpGetRandNum(1,2));
-    //     phase2.setVoltage(238);
-    //     phase2.setIsvalid(1);
-    //     phase2.setTotal(this.hlpGetRandNum(5));
-    //     phase2.setTotalreturned(this.hlpGetRandNum(6));
-    //     power.addPhase(phase2);
-    //
-    //     let phase3 = new Power();
-    //     phase3.setPower(this.hlpGetRandNum(4));
-    //     phase3.setPowerfactor(this.hlpGetRandNum(0,2));
-    //     phase3.setCurrent(this.hlpGetRandNum(1,2));
-    //     phase3.setVoltage(238);
-    //     phase3.setIsvalid(1);
-    //     phase3.setTotal(this.hlpGetRandNum(5));
-    //     phase3.setTotalreturned(this.hlpGetRandNum(6));
-    //     power.addPhase(phase3);
-    //
-    //     return this.addPower(power).then((success)=>{ }).catch((onerror)=>{console.error(onerror);});
-    // }
-
-    // hlpGetRandNum(vorkommastellen=2, nachkommastellen=0) {
-    //     const vFaktor = Math.pow(10, vorkommastellen);
-    //     const vorkomma = Number(Math.random().toString().slice(0, (2+vorkommastellen)))*vFaktor;
-    //     const nachkomma = Number(Math.random().toString().slice(2, 2+nachkommastellen));
-    //     if(!isNaN(Number(vorkomma + '.' + nachkomma) )) {
-    //         return Number(vorkomma + '.' + nachkomma);
-    //     } else {
-    //         return this.hlpGetRandNum(vorkommastellen, nachkommastellen);
-    //     }
-    // }
 
     deleteTodaysPowerData() {
         let morningUnix = HlpClass.getUnixMorningAt(0);
         let query = 'delete from tblPower where tstamp >= ' + morningUnix;
-        console.log(query);
         return new Promise((resolve, reject) => {
             this.pool.query(query, (error, response) => {
                 if (error) {
                     return reject(error);
                 }
-                console.log('deleteTodaysPowerData: ' + response.affectedRows)
                 return resolve(response);
             });
         });

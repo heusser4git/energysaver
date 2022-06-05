@@ -13,7 +13,6 @@ export default class Shelly{
     constructor() {
         this.hlpGetSecretData()
         this.url = this.protocol + "://" + this.ip + ":" + this.port + "/status";
-        console.log('URL for Shelly: ' + this.url)
         this.repo = new Repository();
     }
 
@@ -55,14 +54,14 @@ export default class Shelly{
                 // write power into the db
                 const promise = this.repo.addPower(power);
                 promise.then((success)=>{
-                    console.log('Count of inserted Power: ' + success.affectedRows);
+                    //console.log('Count of inserted Power: ' + success.affectedRows);
                 }).catch((onerror)=>{
                     console.error(onerror);
                 })
             })
             .catch((error) => {
                 // handle error
-                console.log(error + json);
+                console.error(error + json);
             })
     }
 }

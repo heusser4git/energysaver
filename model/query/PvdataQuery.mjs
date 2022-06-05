@@ -5,6 +5,7 @@ export class PvdataQuery {
     constructor(table = "vwSpotData") {
         this.table = table;
     }
+
     sqlQuery(pvdata) {
         const query = new Querygenerator(this.table);
         if(pvdata instanceof Pvdata) {
@@ -19,5 +20,4 @@ export class PvdataQuery {
         }
         return false;
     }
-
 }

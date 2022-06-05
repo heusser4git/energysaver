@@ -58,11 +58,15 @@ Router.get("/current", (req, res)=>{
     });
 });
 
+/**
+ * TODAY
+ *
+ * http://localhost:<port>/pvData/today
+ */
 Router.get("/today", (req, res)=>{
     const nowUnix = HlpClass.getUnixNow();
     // unix in the morning at 6:00
     const unixMorning = HlpClass.getUnixMorningAt(0);
-
     let param = {"start": unixMorning, "end": nowUnix};
     const data = pvRepo.getPvData(param);
     data.then((pvdata) => {
@@ -71,7 +75,3 @@ Router.get("/today", (req, res)=>{
         console.error(onerror);
     });
 });
-
-function hlpUnixToString(unix) {
-    return new Date(unix * 1000).toISOString();
-}

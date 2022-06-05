@@ -44,7 +44,7 @@ Grafisch aufbereitet werden in der aktuellen Version:
       2. shelly.json
    2. Openweatherapi
       1. Get an API-Key from openweathermap.org
-      2. Evaluate your Latitude/Longtitude (www.latlong.net)
+      2. Evaluate your Latitude/Longitude (www.latlong.net)
       3. `{
          "apikey": "<YOUR_API-KEY>",
          "latitude": <YOUR_LATITUDE>,

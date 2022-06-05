@@ -57,5 +57,3 @@ export default class Demoshelly {
         }
     }
 }
-
-new Demoshelly();

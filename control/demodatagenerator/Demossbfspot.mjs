@@ -4,8 +4,6 @@ import {HlpClass} from "../../model/HlpClass.mjs";
 export default class Demosbfspot {
     repo;
     constructor() {
-        // TODO zeile loeschen
-        // this.repo = new Repository('dbSBFspot.json', '../../model/secretdata/');
         this.repo = new Repository();
     }
 

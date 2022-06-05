@@ -1,7 +1,3 @@
-/**
- * Mit freundlicher Hilfe von:
- * https://stackoverflow.com/questions/31822891/how-to-build-dynamic-query-by-binding-parameters-in-node-js-sql
- */
 export class Querygenerator {
     table;
     query;
@@ -9,6 +5,7 @@ export class Querygenerator {
         this.table = table;
         this.query = query;
     }
+
     generateParams = (name, eq, value) => {
         return {
             name: name,
@@ -40,7 +37,6 @@ export class Querygenerator {
         }
         return [query, build.values]
     }
-
 
     queryCondition = (params) => {
         let conditions = [];

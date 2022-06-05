@@ -13,11 +13,11 @@ export class Openweathermap {
     apikey;
     apikeyParam;
 
-    // http://api.openweathermap.org/geo/1.0/direct?q=malans,,CH&appid=bcd3c8bcec345c7a611141e3cc3b8257
     lat = 46.9821456;
     lon = 9.5761204;
     part = "current,minutely,alerts";
     url;
+
     constructor() {
         this.hlpGetSecretData();
 
@@ -25,6 +25,7 @@ export class Openweathermap {
         this.apikeyParam = "&appid=" + this.apikey;
         this.url = `https://api.openweathermap.org/data/2.5/onecall?lat=${this.lat}&lon=${this.lon}&units=metric&exclude=${this.part}` + this.apikeyParam;
     }
+
     hlpGetSecretData(secretfile='openweather.json', path='./model/secretdata/') {
         try {
             const data = fs.readFileSync(path+secretfile, 'utf-8');
@@ -145,7 +146,6 @@ export class Openweathermap {
             }).catch((error) => {
                 console.error(error)
             });
-
 
             res.on('data', (chunk) => {
                 data += chunk;

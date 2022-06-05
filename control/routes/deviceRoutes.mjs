@@ -10,9 +10,8 @@ export default Router.get("/", (req, res)=>{
     console.log("route /");
     const data = repo.getDeviceData({});
     data.then((success)=>{
-console.log(success)
         res.send(success);
     }).catch((failure) => {
-        console.log(failure);
+        console.error(failure);
     });
 });
