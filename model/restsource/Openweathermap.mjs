@@ -141,7 +141,9 @@ export class Openweathermap {
                 for (let weather of weathers) {
                     this.repository.addWeather(weather, (newId) => {
                         newIds.push(newId);
-                    })
+                    }).catch((error)=> {
+                        console.error(error);
+                    });
                 }
             }).catch((error) => {
                 console.error(error)

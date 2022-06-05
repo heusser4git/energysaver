@@ -1,3 +1,5 @@
+const DEMOMODE = 1;
+
 import express from 'express';
 import WetterRoutes from './control/routes/wetterRoutes.mjs';
 import PvDataRoutes from './control/routes/pvDataRoutes.mjs';
@@ -6,10 +8,12 @@ import DeviceRoutes from './control/routes/deviceRoutes.mjs';
 import WebRoutes from './control/routes/webRoutes.mjs';
 import {Openweathermap} from "./model/restsource/Openweathermap.mjs";
 import Shelly from "./model/restsource/Shelly.mjs";
-import {Repository as powerRepo} from "./model/database/power/Repository.mjs";
 import Demosbfspot from "./control/demodatagenerator/Demossbfspot.mjs";
 import Demopower from "./control/demodatagenerator/Demopower.mjs";
 
+/**
+ * REST-Server
+ */
 const app = express();
 app.use("/wetter", WetterRoutes);
 app.use("/pvData", PvDataRoutes);
@@ -20,7 +24,13 @@ app.use("/", WebRoutes);
 const port = 1234;
 app.listen(port, () => console.log('Server ready on Port ' + port));
 
-const DEMOMODE = 1;
+
+
+
+
+/**
+ * Daten einlesen
+ */
 
 const weatherApi = new Openweathermap();
 // intial einlesen des wetters
@@ -28,18 +38,8 @@ weatherApi.run()
 // wetter stuendlich einlesen
 const intervalWeather = setInterval(() => { weatherApi.run() }, 3600000);
 
-
-
 if(DEMOMODE===1) {
     // DEMOMODE FOR SCHOOL
-    // create demo data for power-messurement
-    // const repoPower = new powerRepo();
-    // const intervalPowerDemo = setInterval(() => {
-    //     let promise = repoPower.createDemoPower(new Date().getTime()/1000);
-    //     promise.catch((onerror)=>{
-    //         console.error(onerror)
-    //     })
-    // }, 5000);
 
     let pDemo = new Demopower();
     pDemo.deleteTodaysPowerData();
@@ -62,37 +62,4 @@ if(DEMOMODE===1) {
     // power einlesen alle 5 sekunden
     const powerApi = new Shelly();
     const intervalPower = setInterval(() => { powerApi.run() }, 5000);
-}
-
-
-
-
-
-
-
-// FORMAT FullMinutes
-Date.prototype.getFullMinutes = function () {
-    if (this.getMinutes() < 10) {
-        return '0' + this.getMinutes();
-    }
-    return this.getMinutes();
-};
-
-// Unix-Timestamp to CH-DateTime-String
-function unixToDateTimeString(unix) {
-    let date = new Date(unix * 1000);
-    let month = date.getMonth();
-    if(String(month).length==1) {
-        month = '0' + month;
-    }
-    let day = date.getDay();
-    if(String(day).length==1) {
-        day = '0' + day;
-    }
-    return date.getDay() + "." + month + "." + date.getFullYear() + " " + unixToTimeString(unix);
-}
-
-function unixToTimeString(unix) {
-    let date = new Date(unix * 1000);
-    return date.getHours() + ":" + date.getFullMinutes();
 }
