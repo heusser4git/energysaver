@@ -28,7 +28,7 @@ export default class Demopower {
         let param = {"start": morningUnix, "end": eveningUnix};
         const data = this.repo.getPowerData(param);
         data.then((powerdata)=>{
-            console.log('anzahl powerdata: '+powerdata.length)
+            //console.log('anzahl powerdata: '+powerdata.length)
             powerdata.forEach(entry => {
                 let actualDate = new Date();
                 // aendere datum zu heute

@@ -28,7 +28,7 @@ export default class Demosbfspot {
         let param = {"start": morningUnix, "end": eveningUnix};
         const data = this.repo.getPvData(param);
         data.then((pvdata)=>{
-            console.log('anzahl pvdata: '+pvdata.length)
+            //console.log('anzahl pvdata: '+pvdata.length)
             pvdata.forEach(entry=>{
                 let actualDate = new Date();
                 // aendere datum zu heute
