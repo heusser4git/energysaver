@@ -43,10 +43,12 @@ Grafisch aufbereitet werden in der aktuellen Version:
       1. openweather.json
       2. shelly.json
    2. Openweatherapi
-      1. `{
-         "apikey": "bcd3c8bcec345c7a611141e3cc3b8257",
-         "latitude": 46.9821456,
-         "longitude": 9.5761204
+      1. Get an API-Key from openweathermap.org
+      2. Evaluate your Latitude/Longtitude (www.latlong.net)
+      3. `{
+         "apikey": "<YOUR_API-KEY>",
+         "latitude": <YOUR_LATITUDE>,
+         "longitude": <YOUR_LONGITUTE>
          }`
    3. Shelly (Powersensor)
       1. `{
