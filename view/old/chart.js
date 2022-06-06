@@ -1,7 +1,10 @@
 function goChart(data= {}) {
     return  new Highcharts.chart('container', {
         chart: {
-            type: 'spline'
+            type: 'spline',
+            backgroundColor: null,
+            width: '1000',
+            //height: '350'
         },
         title: {
             text: ''
@@ -156,7 +159,8 @@ async function getChartData() {
                     enabled: false
                 },
                 data: pvEnergyDatapoints
-            }, {
+            },
+                {
                 index: 1,
                 id: 'pvpower',
                 name: 'PV-Stromproduktion',
@@ -171,7 +175,8 @@ async function getChartData() {
                     enabled: false
                 },
                 data: pvPowerDatapoints
-            }, {
+            },
+                {
                 index: 2,
                 id: 'power',
                 name: 'Stromverkauf',
@@ -237,6 +242,7 @@ async function getChartData() {
     }
 }
 // initiale chart-anzeige
+
 getChartData().then((chartData)=>{
     goChart(chartData);
 }).catch((onerror)=>{console.error(onerror)});
@@ -247,3 +253,4 @@ setInterval(()=>{
         goChart(chartData);
     }).catch((onerror)=>{console.error(onerror)});
 }, 300000);
+

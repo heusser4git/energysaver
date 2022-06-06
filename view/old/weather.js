@@ -4,12 +4,12 @@ getWeatherData().then((weatherData)=>{
 
 function goWeather(data = {}){
     let now = new Date()
-    let days = ["Sonntag", "Montag", "Dienstag", "Mittwoch", "Donerstag", "Freitag", "Samstag"]
+    let days = ["Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"]
     let numDay = now.getDay()
     let day = numDay
 
     if (typeof window!== 'undefined'){
-        for (let i = 0; i < 7; i++) {
+        for (let i = 0; i < 8; i++) {
             let newLi = document.createElement("li")
             let divWD = document.createElement("div")
             let divWI = document.createElement("div")
@@ -48,7 +48,7 @@ function goWeather(data = {}){
 
 async function getWeatherData(){
     let dataWeather;
-    const weatherFetch = await fetch('http://localhost:1234/wetter/daily')
+    const weatherFetch = await fetch('../wetter/daily')
     if(weatherFetch.status==200){
         dataWeather = await weatherFetch.json();
     }
