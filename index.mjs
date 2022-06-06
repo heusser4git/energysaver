@@ -38,6 +38,10 @@ weatherApi.run()
 // wetter stuendlich einlesen
 const intervalWeather = setInterval(() => { weatherApi.run() }, 3600000);
 
+
+if(DEMOMODE>0) {
+    console.log('Demo-Mode startet: ' + DEMOMODE)
+}
 if(DEMOMODE===1) {
     // DEMOMODE FOR SCHOOL
 
