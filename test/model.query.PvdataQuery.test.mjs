@@ -8,7 +8,7 @@ describe("PvdataQuery", function (){
         pvData.setTimestamp(1653723210);
         let query = pvDataQuery.sqlQuery(pvData);
 
-        assert.strictEqual(query[0], 'SELECT * FROM vwspotdata WHERE TimeStamp = ?');
+        assert.strictEqual(query[0], 'SELECT * FROM vwSpotData WHERE TimeStamp = ?');
         assert.strictEqual(query[1][0], 1653723210);
     });
     describe("Test2: sqlQuery: Get a specific sql-query for pvData", function (){
@@ -16,7 +16,7 @@ describe("PvdataQuery", function (){
         let pvData = new Pvdata();
         let query = pvDataQuery.sqlQuery(pvData);
 
-        assert.strictEqual(query[0], 'SELECT * FROM vwspotdata WHERE 1 = ?');
+        assert.strictEqual(query[0], 'SELECT * FROM vwSpotData WHERE 1 = ?');
         assert.strictEqual(query[1][0], 1);
     });
     describe("Test3: sqlQuery: Get a specific sql-query for pvData", function (){

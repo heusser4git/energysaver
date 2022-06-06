@@ -305,7 +305,6 @@ export class Weather {
         this.tempmorn = value;
     }
 
-
     getTempday() {
         return this.tempday;
     }

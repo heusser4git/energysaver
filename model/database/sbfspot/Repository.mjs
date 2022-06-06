@@ -33,7 +33,6 @@ export class Repository {
                 query = query + ' GROUP BY Nearest5min ORDER BY timestamp DESC';
             }
         }
-        console.log(query)
         if(query.length>10) {
             return new Promise((resolve, reject)=>{
                this.connection.pool().query(query,  (error, elements)=>{
@@ -87,13 +86,11 @@ export class Repository {
             let query = '';
             query += this.connection.mysql.format(insertQuery, ["spotdata", "TimeStamp", "Serial", "Pac1", "Pac2", "Pac3", "EToday", "ETotal", "Temperature",
                 pvdata.timestamp, 1901372529, pvdata.power, 1, 1, pvdata.energy, pvdata.etotal, pvdata.temperature]);
-            console.log(query);
             return new Promise((resolve, reject) => {
                 this.pool.query(query, (error, response) => {
                     if (error) {
                         return reject(error);
                     }
-                    console.log('addPvDemoData: ' + response.affectedRows)
                     return resolve(response);
                 });
             });
@@ -103,13 +100,11 @@ export class Repository {
     deleteTodaysPvData() {
         let morningUnix = HlpClass.getUnixMorningAt(0);
         let query = 'delete from spotdata where timestamp >= ' + morningUnix;
-        console.log(query);
         return new Promise((resolve, reject) => {
             this.pool.query(query, (error, response) => {
                 if (error) {
                     return reject(error);
                 }
-                console.log('deleteTodaysPvData: ' + response.affectedRows)
                 return resolve(response);
             });
         });

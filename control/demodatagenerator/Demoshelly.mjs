@@ -1,4 +1,4 @@
-import Repository from "../../model/database/power/Repository.mjs";
+import {Repository} from "../../model/database/power/Repository.mjs";
 import {Power} from "../../model/Power.mjs";
 
 export default class Demoshelly {
@@ -57,5 +57,3 @@ export default class Demoshelly {
         }
     }
 }
-
-new Demoshelly();

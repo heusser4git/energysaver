@@ -57,7 +57,6 @@ export default class Repository {
         for(let entry of dbrows) {
             weathers.push(this.hlpDBToWeather(entry));
         }
-        console.log('getWeather gefunden: ' + weathers.length);
         return weathers;
     }
 
@@ -107,13 +106,11 @@ export default class Repository {
             let insertQuery = 'INSERT INTO ?? (??,??,??,??,??,??,??,??,??,??,??,??,??,??,??,??,??,??,??,??,??,??,??,??,??,??,??,??) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)';
             let query = this.connection.mysql.format(insertQuery, ["tblWetter", "type", "timestamp","latitude", "longitude", "temperatur", "clouds", "uvi", "visibility", "weather_main", "weather_description", "weather_icon", "sunrise", "sunset", "moonset", "moon_phase", "pressure", "humidity", "dew_point", "wind_speed", "wind_deg", "wind_gust", "rain", "temp_day", "temp_min", "temp_max", "temp_night", "temp_eve", "temp_morn",
                 weather.getType(), weather.getTimestamp(), weather.getLongitude(), weather.getLatitude(), weather.getTemperatur(), weather.getClouds(), weather.getUvi(), weather.getVisibility(), weather.getMain(), weather.getDescription(), weather.getIcon(), weather.getSunrise(), weather.getSunset(), weather.getMoonset(), weather.getMoonphase(), weather.getPressure(), weather.getHumidity(), weather.getDewpoint(), weather.getWindspeed(), weather.getWinddeg(), weather.getWindgust(), weather.getRain(), weather.getTempday(), weather.getTempmin(), weather.getTempmax(), weather.getTempnight(), weather.getTempeve(), weather.getTempmorn()]);
-
             return new Promise((resolve, reject) => {
                 this.pool.query(query, (error, response) => {
                     if (error) {
                         return reject(error);
                     }
-                    console.log('addWeather inserted: '+response.insertId);
                     return resolve(response.insertId);
                 });
             });
@@ -130,15 +127,12 @@ export default class Repository {
             let unixtimestampIn = '(' + unixtimestamps.join(',') + ')';
             let insertQuery = 'UPDATE ?? set deleted=1 WHERE ?? IN ? and deleted!=1';
             let query = this.connection.mysql.format(insertQuery, ["tblWetter", "timestamp", unixtimestampIn]);
-            // TODO ' vor IN
             query = "UPDATE `tblWetter` set deleted=1 WHERE `timestamp` IN " + unixtimestampIn + " and deleted!=1";
-
             return new Promise((resolve, reject) => {
                 this.pool.query(query, (error, response) => {
                     if (error) {
                         return reject(error);
                     }
-                    console.log(response.message);
                     return resolve(response.changedRows);
                 });
             });

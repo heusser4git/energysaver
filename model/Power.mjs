@@ -10,7 +10,6 @@ export class Power {
     totalreturned;
     phases = [];
 
-
     getTstamp() {
         return this.tstamp;
     }
@@ -86,9 +85,11 @@ export class Power {
     setPhases(value) {
         this.phases = value;
     }
+
     getPhases() {
         return this.phases;
     }
+
     addPhase(value) {
         this.phases.push(value);
     }

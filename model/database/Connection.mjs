@@ -25,7 +25,7 @@ export default class Connection {
     }
 
     pool() {
-        console.log('DB-Pool startet: ' + this.database)
+        //console.log('DB-Pool startet: ' + this.database)
         return mysql.createPool({
             connectionLimit: 10,
             password: this.password,
