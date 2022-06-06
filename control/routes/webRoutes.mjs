@@ -14,9 +14,6 @@ Router.get("/uh/:file", (req, res)=>{
     res.sendFile(path.join(process.cwd() + '/view/uh/' + req.params.file));
 });
 
-Router.get("/mp/:file", (req, res)=>{
-    res.sendFile(path.join(process.cwd() + '/view/mp/' + req.params.file));
-});
 Router.get("/img/:file", (req, res)=>{
     res.sendFile(path.join(process.cwd() + '/view/img/' + req.params.file));
 });
