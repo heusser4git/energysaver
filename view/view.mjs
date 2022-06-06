@@ -221,18 +221,19 @@ export class View{
             let div2 = document.createElement("div")
             let div3 = document.createElement("div")
             let table = document.createElement("table")
-
             div2.innerText = data.name
             div2.className = "table-header"
             div1.id = i
+            data.data.reverse()
             for (const tabledata of data.data) {
                 let tr = document.createElement("tr")
                 let td1 = document.createElement("td")
                 let td2 = document.createElement("td")
                 let date = new Date(tabledata.name)
+                tr.className = "table-tr"
                 if(date.getHours() >7){
-                    td1.innerText = (date.getHours() - 2) +":" + date.getMinutes()
-                    td2.innerText = (Math.round(tabledata.y) / 1000) + " kWh"
+                    td1.innerText = this.timeFormatter(date)
+                    td2.innerText = (Math.round(tabledata.y) / 1000) + data.tooltip.valueSuffix
                     div3.appendChild(tr).appendChild(td1)
                     tr.appendChild(td2)
                 }
@@ -245,6 +246,23 @@ export class View{
         for (const div of divs) {
             document.getElementById("table").appendChild(div)
         }
+    }
+
+    timeFormatter(date){
+        let hours
+        let minutes
+        if(date.getHours() < 10){
+            hours = "0" + date.getHours()
+        }else {
+            hours = date.getHours()
+        }
+        if (date.getMinutes() < 10){
+            minutes = "0" + date.getMinutes()
+        }else {
+            minutes = date.getMinutes()
+        }
+        let zeit = hours + ":" + minutes
+        return zeit
     }
 
 }

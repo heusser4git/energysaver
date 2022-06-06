@@ -5,6 +5,7 @@ export class Model{
         if(response.status == 200){
             this.weatherData = await response.json();
         }
+        console.log(this.weatherData)
         return this.weatherData;
     }
 

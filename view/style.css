@@ -1,15 +1,21 @@
 header {
     height: 50px;
-    background: darkgrey;
+    background: #d70404;
     position: fixed;
     width: 100%;
     top: 0;
     padding-left: 20px;
     padding-bottom: 10px;
     z-index: 1;
+    display: flex;
+    justify-content: center;
 }
 header h1{
     margin-top: 10px;
+}
+
+header div{
+    width: 1000px;
 }
 
 body {
@@ -18,7 +24,7 @@ body {
     color: white;
     margin: 0;
     padding: 0;
-    background-color: #c4c3c3;
+    background-color: #050000;
 }
 
 main {
@@ -57,7 +63,7 @@ div.device{
 }
 
 div.device-box{
-    background-color: rgba(0, 123, 255, 0.9);
+    background-color: rgba(9, 9, 9, 0.9);
     border: 1px solid;
     padding: 10px;
     margin: 1px;
@@ -83,11 +89,12 @@ div.container{
 }
 div.table {
     display: none;
-
-
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 100%;
 }
 div.table-header{
-    background-color: rgba(0, 123, 255, 0.9);
+    background-color: rgba(9, 9, 9, 0.9);
     border: 1px solid;
     padding: 10px;
     margin: 1px;
@@ -95,10 +102,22 @@ div.table-header{
     justify-content: space-around;
     border-radius: 15px;
 }
+tr.table-tr{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+tr.table-tr td{
+    width: 100px;
+}
+div.table-header:hover{
+    background-color: red;
+}
 
 summary{
     list-style: none;
 }
+
 ul.table-weather{
     list-style: none;
     text-align: center;
@@ -112,7 +131,7 @@ ul.table-weather li{
     float: left;
     border: 1px solid;
     margin: 1px;
-    background-color: rgba(0, 123, 255, 0.9);
+    background-color: rgba(7, 7, 7, 0.9);
     color: white;
     padding: 10px;
     border-radius: 15px;
@@ -140,28 +159,48 @@ div.weather-temp-max{
     border-radius: 6px;
 }
 
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 480px) {
     div.weather-icon img{
         width: 90px;
     }
     div.Home-Visu{
         scale: 80%
     }
-    ul.table-weather{
-        display: contents;
-    }
     ul.table-weather li{
         padding: 8px;
+    }
+
+    div.device-box{
+        float: none;
+    }
+    div.container{
+        display: none;
+    }
+    div.table{
+        display: block;
+    }
+    ul.table-weather{
+        display: contents;
     }
     div.device{
         display: block;
     }
 }
-@media screen and (max-width: 1000px) {
+@media (min-width: 481px) and (max-width: 1000px) {
     div.table{
         display: block;
     }
     div.container{
         display: none;
     }
+    ul.table-weather{
+        display: contents;
+    }
+    div.device{
+        display: block;
+    }
+    div.device-box{
+        float: left;
+    }
+
 }
