@@ -35,6 +35,7 @@ export class Model{
 
     async loadChartData() {
         let chartdatas = [];
+
         const powerFetch = await fetch('../power/today');
         if (powerFetch.status == 200) {
             const timezonediff = new Date().getTimezoneOffset() * 60;
@@ -53,14 +54,12 @@ export class Model{
                     datapointsPowerPurchase.push({name: new Date(dateUnix * 1000), y: d.power, x: dateUnix * 1000});
                     datapointsPowerSale.push({name: new Date(dateUnix * 1000), y: 0, x: dateUnix * 1000});
                 } else {
-                    // verauf
+                    // verkauf
                     datapointsPowerPurchase.push({name: new Date(dateUnix * 1000), y: 0, x: dateUnix * 1000});
                     datapointsPowerSale.push({name: new Date(dateUnix * 1000), y: -d.power, x: dateUnix * 1000});
                 }
             }
 
-            let chartdataPVpower;
-            let chartdataPVenergy;
             let datapv;
             const pvdataFetch = await fetch('../pvdata/today');
             if (pvdataFetch.status == 200) {
@@ -99,6 +98,7 @@ export class Model{
                         datapointsConsumtion.push({name: date, y: consumtionPower, x: unixDate})
                     }
                 }
+
                 chartdatas = [{
                     index: 0,
                     id: 'pvenergy',

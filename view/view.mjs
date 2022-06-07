@@ -3,12 +3,16 @@ export class View{
     renderWeather(weather){
         let now = new Date()
         let days = ["Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"]
-        let numDay = now.getDay()
-        let day = numDay
+        let startArray
+        for (let i = 0; i < weather.length; i++) {
+            if (this.dateChecker(weather[i].timestamp)){
+                startArray = i
+            }
+        }
 
         if (typeof window!== 'undefined'){
             let weatherDays = [];
-            for (let i = 0; i < 8; i++) {
+            for (let i = startArray; i < weather.length; i++) {
                 let newLi = document.createElement("li")
                 let divWD = document.createElement("div")
                 let divWI = document.createElement("div")
@@ -16,24 +20,22 @@ export class View{
                 let divWT = document.createElement("div")
                 let divWTmin = document.createElement("div")
                 let divWTmax = document.createElement("div")
+                let day = new Date(weather[i].timestamp * 1000)
 
-                if(numDay + i == 7){
-                    day = 0
-                }
-                if (i === 0){
+                if(day.getDate() == now.getDate() ){
                     divWD.innerText = "Heute"
                 }else{
-                    divWD.innerText = days[day]
-                }day++
+                    divWD.innerText = days[day.getDay()]
+                }
 
                 divWD.className = "weather-day"
                 divWI.className = "weather-icon"
-                image.src = "http://openweathermap.org/img/wn/"+ weather[i+2].icon +"@2x.png"
+                image.src = "http://openweathermap.org/img/wn/"+ weather[i].icon +"@2x.png"
                 divWT.className = "weather-temperatur"
                 divWTmax.className = "weather-temp-max"
                 divWTmin.className = "weather-temp-min"
-                divWTmin.innerText  = Math.round(weather[i+2].tempmin) + "°"
-                divWTmax.innerText  = Math.round(weather[i+2].tempmax) + "°"
+                divWTmin.innerText  = Math.round(weather[i].tempmin) + "°"
+                divWTmax.innerText  = Math.round(weather[i].tempmax) + "°"
 
                 newLi.appendChild(divWD)
                 newLi.appendChild(divWI).appendChild(image)
@@ -264,5 +266,18 @@ export class View{
         let zeit = hours + ":" + minutes
         return zeit
     }
+
+    dateChecker(date){
+        let dateTest = new Date(date*1000)
+        let dateToday = new Date()
+
+        if(dateTest.getMonth() == dateToday.getMonth() && dateTest.getFullYear() == dateToday.getFullYear()
+            && dateTest.getDate() == dateToday.getDate()){
+            return true
+        }else{
+            return false
+        }
+    }
+
 
 }
