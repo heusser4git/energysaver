@@ -27,6 +27,7 @@ export class Controller{
         this.view.renderChart(chartData)
         this.view.renderTableHeader(chartData)
     }
+
     async intervalSlow(){
         let weather = await this.model.loadWeatherData();
         let chartData = await this.model.loadChartData();
