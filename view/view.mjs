@@ -1,16 +1,16 @@
-export class View{
+export class View {
 
-    renderWeather(weather){
+    renderWeather(weather) {
         let now = new Date()
         let days = ["Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"]
         let startArray
         for (let i = 0; i < weather.length; i++) {
-            if (this.dateChecker(weather[i].timestamp)){
+            if (this.dateChecker(weather[i].timestamp)) {
                 startArray = i
             }
         }
 
-        if (typeof window!== 'undefined'){
+        if (typeof window !== 'undefined') {
             let weatherDays = [];
             for (let i = startArray; i < weather.length; i++) {
                 let newLi = document.createElement("li")
@@ -22,20 +22,20 @@ export class View{
                 let divWTmax = document.createElement("div")
                 let day = new Date(weather[i].timestamp * 1000)
 
-                if(day.getDate() == now.getDate() ){
+                if (day.getDate() == now.getDate()) {
                     divWD.innerText = "Heute"
-                }else{
+                } else {
                     divWD.innerText = days[day.getDay()]
                 }
 
                 divWD.className = "weather-day"
                 divWI.className = "weather-icon"
-                image.src = "http://openweathermap.org/img/wn/"+ weather[i].icon +"@2x.png"
+                image.src = "http://openweathermap.org/img/wn/" + weather[i].icon + "@2x.png"
                 divWT.className = "weather-temperatur"
                 divWTmax.className = "weather-temp-max"
                 divWTmin.className = "weather-temp-min"
-                divWTmin.innerText  = Math.round(weather[i].tempmin) + "°"
-                divWTmax.innerText  = Math.round(weather[i].tempmax) + "°"
+                divWTmin.innerText = Math.round(weather[i].tempmin) + "°"
+                divWTmax.innerText = Math.round(weather[i].tempmax) + "°"
 
                 newLi.appendChild(divWD)
                 newLi.appendChild(divWI).appendChild(image)
@@ -45,14 +45,14 @@ export class View{
                 weatherDays.push(newLi);
             }
             let tableWeather = document.getElementById("table-weather");
-            if(tableWeather.hasChildNodes()) {
+            if (tableWeather.hasChildNodes()) {
                 let oldLis = document.getElementById("table-weather").querySelectorAll("li");
                 let i = 0
                 for (const oldLiElement of oldLis) {
                     document.getElementById("table-weather").replaceChild(weatherDays[i], oldLiElement)
                     i++
                 }
-            }else {
+            } else {
                 for (const weatherDay of weatherDays) {
                     document.getElementById("table-weather").appendChild(weatherDay)
                 }
@@ -60,37 +60,37 @@ export class View{
         }
     }
 
-    renderTitel(powerCurrent, pVcurrent){
+    renderTitel(powerCurrent, pVcurrent) {
         let HvL1Icon = document.createElement("img")
         let HvL2Icon = document.createElement("img")
         HvL1Icon.className = "HvL-icon"
         HvL2Icon.className = "HvL-icon"
 
-        if(powerCurrent.power > 0){
-            document.getElementById("currentPower").innerText = Math.round(powerCurrent.power) +"W"
-            HvL2Icon.src ="./img/Pfeil-links.svg"
-        }else {
-            document.getElementById("currentPower").innerText = Math.round(powerCurrent.power*-1) +"W"
-            HvL2Icon.src ="./img/Pfeil-rechts.svg"
+        if (powerCurrent.power > 0) {
+            document.getElementById("currentPower").innerText = Math.round(powerCurrent.power) + "W"
+            HvL2Icon.src = "./img/Pfeil-links.svg"
+        } else {
+            document.getElementById("currentPower").innerText = Math.round(powerCurrent.power * -1) + "W"
+            HvL2Icon.src = "./img/Pfeil-rechts.svg"
         }
 
-        if (pVcurrent.power === undefined){
+        if (pVcurrent.power === undefined) {
             document.getElementById("currentPVA").innerText = "0W"
         } else {
-            document.getElementById("currentPVA").innerText = pVcurrent.power +"W"
-            HvL1Icon.src ="./img/Pfeil-rechts.svg"
+            document.getElementById("currentPVA").innerText = pVcurrent.power + "W"
+            HvL1Icon.src = "./img/Pfeil-rechts.svg"
         }
 
-        if (document.getElementById("HvL1-icon").hasChildNodes()){
-           let old = document.getElementById("HvL1-icon").querySelector("img")
-            document.getElementById("HvL1-icon").replaceChild(HvL1Icon,old)
-        }else {
+        if (document.getElementById("HvL1-icon").hasChildNodes()) {
+            let old = document.getElementById("HvL1-icon").querySelector("img")
+            document.getElementById("HvL1-icon").replaceChild(HvL1Icon, old)
+        } else {
             document.getElementById("HvL1-icon").appendChild(HvL1Icon)
         }
-        if(document.getElementById("HvL2-icon").hasChildNodes()){
+        if (document.getElementById("HvL2-icon").hasChildNodes()) {
             let old = document.getElementById("HvL2-icon").querySelector("img")
-            document.getElementById("HvL2-icon").replaceChild(HvL2Icon,old)
-        }else {
+            document.getElementById("HvL2-icon").replaceChild(HvL2Icon, old)
+        } else {
             document.getElementById("HvL2-icon").appendChild(HvL2Icon)
         }
         document.getElementById("HvL1-icon").style = "text-align: center"
@@ -132,14 +132,14 @@ export class View{
                 devices.push(deviceDiv)
             }
 
-            if(htmlbase.hasChildNodes()){
+            if (htmlbase.hasChildNodes()) {
                 let htmlBaseElements = htmlbase.getElementsByClassName("device-box")
                 let i = 0
                 for (const htmlbaseElement of htmlBaseElements) {
-                    document.getElementById("device").replaceChild(devices[i],htmlbaseElement)
+                    document.getElementById("device").replaceChild(devices[i], htmlbaseElement)
                     i++
                 }
-            }else {
+            } else {
                 for (const device of devices) {
                     htmlbase.appendChild(device)
                 }
@@ -147,8 +147,9 @@ export class View{
         }
     }
 
-    renderChart(chartData){
-        return  new Highcharts.chart('container', {
+    renderChart(chartData) {
+        let array = this.creatTableChartData(chartData)
+        return new Highcharts.chart('container', {
             chart: {
                 type: 'spline',
                 backgroundColor: null,
@@ -163,16 +164,16 @@ export class View{
                 shared: true,
                 formatter: function () {
                     let date = new Date();
-                    const timezonediff = date.getTimezoneOffset()*60;
+                    const timezonediff = date.getTimezoneOffset() * 60;
                     let m = new Date(this.x).getMinutes();
-                    if(String(m).length<2) {
+                    if (String(m).length < 2) {
                         m = String('0' + m);
                     }
                     let h = new Date(this.x + timezonediff).getUTCHours();
                     return [h + ':' + m].concat(
                         this.points ?
                             this.points.map(function (point) {
-                                return '<br>' + point.series.name + ': ' + (point.y/1000).toFixed(2) + point.series.tooltipOptions.valueSuffix;
+                                return '<br>' + point.series.name + ': ' + (point.y / 1000).toFixed(2) + point.series.tooltipOptions.valueSuffix;
                             }) : []
                     );
                 }
@@ -180,16 +181,22 @@ export class View{
             yAxis: [
                 {
                     id: 'power',
-                    title: { text: 'Power'},
-                    labels: { formatter: function() {	return this.value/1000 + ' kW';} },
+                    title: {text: 'Power'},
+                    labels: {
+                        formatter: function () {
+                            return this.value / 1000 + ' kW';
+                        }
+                    },
                     softMin: 0
                 },
                 {
                     id: 'energy',
-                    title: { text: 'Energy' },
+                    title: {text: 'Energy'},
                     labels: {
-                        formatter: function() {	return (this.value/1000).toFixed(0) + ' kWh';},
-                        style: { color: '#00b300' }
+                        formatter: function () {
+                            return (this.value / 1000).toFixed(0) + ' kWh';
+                        },
+                        style: {color: '#00b300'}
                     },
                     min: 0,
                     showEmpty: false,
@@ -200,7 +207,7 @@ export class View{
             ],
             xAxis: {
                 type: 'datetime',
-                tickInterval: 3600  * 1000, // 30min in milliseconds
+                tickInterval: 3600 * 1000, // 30min in milliseconds
                 tickWidth: 0,
                 gridLineWidth: 1,
                 labels: {
@@ -209,11 +216,12 @@ export class View{
                     y: 24
                 }
             },
-            series: chartData
+            series: array
         });
     }
 
-    renderTableHeader(chartData){
+    renderTableHeader(data) {
+        let chartData = this.creatTableChartData(data)
         let divs = []
         let i = 0
         for (const data of chartData) {
@@ -233,7 +241,7 @@ export class View{
                 let td2 = document.createElement("td")
                 let date = new Date(tabledata.name)
                 tr.className = "table-tr"
-                if(date.getHours() >7){
+                if (date.getHours() > 7) {
                     td1.innerText = this.timeFormatter(date)
                     td2.innerText = (Math.round(tabledata.y) / 1000) + data.tooltip.valueSuffix
                     div3.appendChild(tr).appendChild(td1)
@@ -250,34 +258,80 @@ export class View{
         }
     }
 
-    timeFormatter(date){
+    // Helper Function
+    timeFormatter(date) {
         let hours
         let minutes
-        if(date.getHours() < 10){
+        if (date.getHours() < 10) {
             hours = "0" + date.getHours()
-        }else {
+        } else {
             hours = date.getHours()
         }
-        if (date.getMinutes() < 10){
+        if (date.getMinutes() < 10) {
             minutes = "0" + date.getMinutes()
-        }else {
+        } else {
             minutes = date.getMinutes()
         }
         let zeit = hours + ":" + minutes
         return zeit
     }
 
-    dateChecker(date){
-        let dateTest = new Date(date*1000)
+    creatTableChartData(chartData){
+        let dataArray = [
+            this.chartFormatter(0, 'pvenergy', 'PV-Energie', true, 'spline',
+                0, 1, 0, '#00b300', 4, 1, ' kWh', false,
+                chartData[0]),
+            this.chartFormatter(1, 'pvpower', 'PV-Stromproduktion', true, 'areaspline',
+                0, 0, 0, '#ffe066', 0, 0.6, ' kW', false,
+                chartData[1]),
+            this.chartFormatter(2, 'power', 'Stromverkauf', true, 'areaspline',
+                0, 0, 0, '#90EE90', 0, 0.8, ' kW', false,
+                chartData[2]),
+            this.chartFormatter(3, 'power', 'Strombezug', false, 'areaspline',
+                0, 0, '#90EE90', '#ff9999', 0, 1, ' kW', false,
+                chartData[3]),
+            this.chartFormatter(4, 'power', 'Sromkauf', true, 'areaspline',
+                0, 0, 0, '#ff4d4d', 4, 0.6, ' kW', false,
+                chartData[4]),
+            this.chartFormatter(5, 'consumpower', 'Stromverbrauch', true, 'spline',
+                'ShortDashDot', 0, 0, '#800000', 1, 1, ' kW', false,
+                chartData[5])]
+        return dataArray
+    }
+
+    chartFormatter(index, id, name, visible, type, dashStyle, y, negativeColor, color, line, opacity, valueSuffix, marker, data) {
+        let object = {
+            index: index,
+            id: id,
+            name: name,
+            visible: visible,
+            type: type,
+            dashStyle: dashStyle,
+            yAxis: y,
+            negativeColor: negativeColor,
+            color: color,
+            lineWidth: line,
+            opacity: opacity,
+            tooltip: {
+                valueSuffix: valueSuffix
+            },
+            marker: {
+                enabled: marker
+            },
+            data: data
+        }
+        return object
+    }
+
+    dateChecker(date) {
+        let dateTest = new Date(date * 1000)
         let dateToday = new Date()
 
-        if(dateTest.getMonth() == dateToday.getMonth() && dateTest.getFullYear() == dateToday.getFullYear()
-            && dateTest.getDate() == dateToday.getDate()){
+        if (dateTest.getMonth() == dateToday.getMonth() && dateTest.getFullYear() == dateToday.getFullYear()
+            && dateTest.getDate() == dateToday.getDate()) {
             return true
-        }else{
+        } else {
             return false
         }
     }
-
-
 }

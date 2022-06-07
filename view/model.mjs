@@ -5,7 +5,6 @@ export class Model{
         if(response.status == 200){
             this.weatherData = await response.json();
         }
-        console.log(this.weatherData)
         return this.weatherData;
     }
 
@@ -94,106 +93,16 @@ export class Model{
                         if (consumtionPower < 0) {
                             consumtionPower = 0;
                         }
-
                         datapointsConsumtion.push({name: date, y: consumtionPower, x: unixDate})
                     }
                 }
-
-                chartdatas = [{
-                    index: 0,
-                    id: 'pvenergy',
-                    name: 'PV-Energie',
-                    type: 'spline',
-                    yAxis: 1,
-                    color: '#00b300',
-                    lineWidth: 4,
-                    tooltip: {
-                        valueSuffix: ' kWh'
-                    },
-                    marker: {
-                        enabled: false
-                    },
-                    data: pvEnergyDatapoints
-                },
-                    {
-                        index: 1,
-                        id: 'pvpower',
-                        name: 'PV-Stromproduktion',
-                        type: 'areaspline',
-                        yAxis: 0,
-                        color: '#ffe066',
-                        opacity: 0.6,
-                        tooltip: {
-                            valueSuffix: ' kW'
-                        },
-                        marker: {
-                            enabled: false
-                        },
-                        data: pvPowerDatapoints
-                    },
-                    {
-                        index: 2,
-                        id: 'power',
-                        name: 'Stromverkauf',
-                        type: 'areaspline',
-                        yAxis: 0,
-                        color: '#90EE90',
-                        opacity: 0.8,
-                        tooltip: {
-                            valueSuffix: ' kW'
-                        },
-                        marker: {
-                            enabled: false
-                        },
-                        data: datapointsPowerSale
-                    }, {
-                        index: 3,
-                        id: 'power',
-                        name: 'Strombezug',
-                        visible: false,
-                        type: 'areaspline',
-                        yAxis: 0,
-                        negativeColor: '#90EE90',
-                        color: '#ff9999',
-                        tooltip: {
-                            valueSuffix: ' kW'
-                        },
-                        marker: {
-                            enabled: false
-                        },
-                        data: datapointsPower
-                    }, {
-                        index: 4,
-                        id: 'power',
-                        name: 'Stromkauf',
-                        type: 'areaspline',
-                        yAxis: 0,
-                        color: '#ff4d4d',
-                        tooltip: {
-                            valueSuffix: ' kW'
-                        },
-                        marker: {
-                            enabled: false
-                        },
-                        data: datapointsPowerPurchase
-                    }, {
-                        index: 5,
-                        id: 'consumpower',
-                        name: 'Stromverbrauch',
-                        type: 'spline',
-                        dashStyle: 'ShortDashDot',
-                        yAxis: 0,
-                        color: '#800000',
-                        tooltip: {
-                            valueSuffix: ' kW'
-                        },
-                        marker: {
-                            enabled: false
-                        },
-                        data: datapointsConsumtion
-                    }];
+                chartdatas[0] = pvEnergyDatapoints
+                chartdatas[1] = pvPowerDatapoints
+                chartdatas[2] = datapointsPowerSale
+                chartdatas[3] = datapointsPower
+                chartdatas[4] = datapointsPowerPurchase
+                chartdatas[5] = datapointsConsumtion
             }
-            console.log(chartdatas)
             return chartdatas;
         }
     }
