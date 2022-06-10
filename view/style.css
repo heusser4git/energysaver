@@ -24,7 +24,8 @@ body {
     color: white;
     margin: 0;
     padding: 0;
-    background-color: #050000;
+    background:linear-gradient(to bottom, black, white);
+    background-repeat: no-repeat;
 }
 
 main {
@@ -135,6 +136,9 @@ ul.table-weather li{
     color: white;
     padding: 10px;
     border-radius: 15px;
+}
+ul.table-weather li:hover{
+    background-color: red;
 }
 div.weather-temperatur{
     width: 100%;
