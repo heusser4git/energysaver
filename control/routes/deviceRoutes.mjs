@@ -7,7 +7,6 @@ const repo = new Repository();
 
 // http://localhost:<port>/device/
 export default Router.get("/", (req, res)=>{
-    console.log("route /");
     const data = repo.getDeviceData({});
     data.then((success)=>{
         res.send(success);
