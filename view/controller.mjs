@@ -37,6 +37,8 @@ export class Controller{
     }
 
     async intervalFast(){
+        // TODO Die Devices müssen nicht so oft abgeholt werden... die ändern ja "nie".
+        // Die Logic ob "grün" oder "rot" kann Clientseitig gerechnet werden...
         let device = await this.model.loadDevice();
         let pvCurrent = await this.model.loadPVCurrent();
         let powerCurrent = await this.model.loadPowerCurrent();
