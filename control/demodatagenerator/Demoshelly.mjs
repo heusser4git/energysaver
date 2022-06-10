@@ -10,7 +10,6 @@ export default class Demoshelly {
     createDemoPower(power) {
         let promisePower = this.repo.addPower(power);
         promisePower.then((success)=>{
-            console.log('createDemoPower');
             console.log(success);
         }).catch((onerror)=>{
             console.error(onerror);
@@ -27,7 +26,6 @@ export default class Demoshelly {
     }
 
     run() {
-        console.log('start');
         let date = new Date ();
         let now = Number.parseInt(Number(date.getTime()/1000));
         let param = {"start": (now-6000), "end": now};
@@ -37,13 +35,11 @@ export default class Demoshelly {
             console.log(success)
             if(success.length>0) {
                 powerdata = success;
-                console.log(powerdata)
             }
         }).catch((onerror)=>{
             console.error(onerror);
         }).finally((data)=>{
             console.log(data)
-            console.log('finally')
         });
         while(true) {
             if(powerdata.length>0) {
