@@ -4,14 +4,6 @@ export class Controller{
         this.view = view
         this.start()
 
-        setInterval(()=>{
-            this.intervalSlow();
-        }, 300000)
-
-        setInterval(()=>{
-            this.intervalFast();
-        }, 200000)
-
     }
 
     async start(){
@@ -26,6 +18,15 @@ export class Controller{
         this.view.renderDevice(device,powerCurrent)
         this.view.renderChart(chartData)
         this.view.renderTableHeader(chartData)
+
+        setInterval(()=>{
+            this.intervalSlow();
+        }, 300000)
+
+        setInterval(()=>{
+            this.intervalFast(device);
+        }, 10000)
+
     }
 
     async intervalSlow(){
@@ -36,10 +37,8 @@ export class Controller{
         this.view.renderChart(chartData)
     }
 
-    async intervalFast(){
-        // TODO Die Devices müssen nicht so oft abgeholt werden... die ändern ja "nie".
-        // Die Logic ob "grün" oder "rot" kann Clientseitig gerechnet werden...
-        let device = await this.model.loadDevice();
+    async intervalFast(device){
+        //let device = await this.model.loadDevice();
         let pvCurrent = await this.model.loadPVCurrent();
         let powerCurrent = await this.model.loadPowerCurrent();
 
