@@ -187,7 +187,8 @@ export class View {
                     labels: {
                         formatter: function () {
                             return this.value / 1000 + ' kW';
-                        }
+                        },
+                        style: {color: '#ffffff'}
                     },
                     softMin: 0
                 },
@@ -215,7 +216,13 @@ export class View {
                 labels: {
                     align: 'center',
                     x: 0,
-                    y: 24
+                    y: 24,
+                    style: {color: '#ffffff'}
+                }
+            },
+            legend: {
+                itemStyle: {
+                    'color': '#ffffff'
                 }
             },
             series: array
@@ -281,22 +288,22 @@ export class View {
     creatTableChartData(chartData){
         let dataArray = [
             this.chartFormatter(0, 'pvenergy', 'PV-Energie', true, 'spline',
-                0, 1, 0, '#00b300', 4, 1, ' kWh', false,
+                0, 1, 0, '#0000ff', 4, 1, ' kWh', false,
                 chartData[0]),
             this.chartFormatter(1, 'pvpower', 'PV-Stromproduktion', true, 'areaspline',
-                0, 0, 0, '#ffe066', 0, 0.6, ' kW', false,
+                0, 0, 0, '#ffff4d', 0, 1, ' kW', false,
                 chartData[1]),
             this.chartFormatter(2, 'power', 'Stromverkauf', true, 'areaspline',
-                0, 0, 0, '#90EE90', 0, 0.8, ' kW', false,
+                0, 0, 0, '#00ff00', 0, 0.8, ' kW', false,
                 chartData[2]),
             this.chartFormatter(3, 'power', 'Strombezug', false, 'areaspline',
                 0, 0, '#90EE90', '#ff9999', 0, 1, ' kW', false,
                 chartData[3]),
-            this.chartFormatter(4, 'power', 'Sromkauf', true, 'areaspline',
-                0, 0, 0, '#ff4d4d', 4, 0.6, ' kW', false,
+            this.chartFormatter(4, 'power', 'Stromkauf', true, 'areaspline',
+                    0, 0, 0, '#ff3385', 4, 0.9, ' kW', false,
                 chartData[4]),
             this.chartFormatter(5, 'consumpower', 'Stromverbrauch', true, 'spline',
-                'ShortDashDot', 0, 0, '#800000', 1, 1, ' kW', false,
+                'ShortDashDot', 0, 0, '#800000', 2, 1, ' kW', false,
                 chartData[5])]
         return dataArray
     }
