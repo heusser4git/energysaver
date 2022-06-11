@@ -9,12 +9,16 @@ const repo = new Repository();
 // http://localhost:<port>/power/1652554800-1652558400
 Router.get("/:start-:end", (req, res)=>{
     let param = {"start": req.params.start, "end": req.params.end};
-    const data = repo.getPowerData(param);
-    data.then((success)=>{
-        res.send(success);
-    }).catch((failure) => {
-        console.error(failure);
-    });
+    if(!isNaN(req.params.start) && !isNaN(req.params.end)) {
+        const data = repo.getPowerData(param);
+        data.then((success)=>{
+            res.send(success);
+        }).catch((failure) => {
+            console.error(failure);
+        });
+    } else {
+        res.sendStatus(405);
+    }
 });
 
 // http://localhost:<port>/power/

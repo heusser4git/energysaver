@@ -13,13 +13,17 @@ const pvRepo = new Repository();
  * http://localhost:<port>/pvData/1652554800-1652558400
  */
 Router.get("/:start-:end", (req, res)=>{
-    let param = {"start": req.params.start, "end": req.params.end};
-    const data = pvRepo.getPvData(param);
-    data.then((pvdata) => {
-        res.send(pvdata);
-    }).catch((onerror)=>{
-        console.error(onerror);
-    });
+    if(!isNaN(req.params.start) && !isNaN(req.params.end)) {
+        let param = {"start": req.params.start, "end": req.params.end};
+        const data = pvRepo.getPvData(param);
+        data.then((pvdata) => {
+            res.send(pvdata);
+        }).catch((onerror) => {
+            console.error(onerror);
+        });
+    } else {
+        res.sendStatus(405);
+    }
 });
 
 /**
