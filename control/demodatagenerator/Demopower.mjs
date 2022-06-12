@@ -41,6 +41,8 @@ export default class Demopower {
                 }
                 this.repo.addPower(entry).catch((onerror)=>{ console.error(onerror); });
             })
-        }).catch((onerror)=>{ console.error(onerror); });
+        }).catch((onerror)=>{ console.error(onerror); }).finally(()=>{
+            console.log('Power-Demodata ready');
+        });
     }
 }

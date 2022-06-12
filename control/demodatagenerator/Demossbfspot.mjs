@@ -41,6 +41,8 @@ export default class Demosbfspot {
                 }
                 this.repo.addPvDemoData(entry).catch((onerror)=>{ console.error(onerror); });
             })
-        }).catch((onerror)=>{ console.error(onerror); });
+        }).catch((onerror)=>{ console.error(onerror); }).finally(()=>{
+            console.log('PV-Demodata ready');
+        });
     }
 }

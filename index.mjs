@@ -52,7 +52,6 @@ if(DEMOMODE===1) {
     let d = new Demosbfspot();
     d.deleteTodaysPVData();
     d.createDemoDataFromTemplatePVDay();
-
 } else if(DEMOMODE===2) {
     // demomode for at home without pvData
     let d = new Demosbfspot();
