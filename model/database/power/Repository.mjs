@@ -25,11 +25,14 @@ export class Repository {
         query = sql + ' ORDER BY tstamp DESC';
         if (query.length > 10) {
             return new Promise((resolve, reject) => {
-               this.pool.query(query, (error, elements) => {
-                    if (error) {
-                        return reject(error);
-                    }
-                   return resolve(elements);
+                this.pool.getConnection((err, conn)=> {
+                    conn.query(query, (error, elements) => {
+                        if (error) {
+                            return reject(error);
+                        }
+                        return resolve(elements);
+                    });
+                    this.pool.releaseConnection(conn);
                 });
             });
         }
@@ -45,11 +48,14 @@ export class Repository {
         query = sql + ' ORDER BY tstamp DESC';
         if (query.length > 10) {
             return new Promise((resolve, reject) => {
-                this.pool.query(query, (error, elements) => {
-                    if (error) {
-                        return reject(error);
-                    }
-                    return resolve(elements);
+                this.pool.getConnection((err, conn)=> {
+                    conn.query(query, (error, elements) => {
+                        if (error) {
+                            return reject(error);
+                        }
+                        return resolve(elements);
+                    });
+                    this.pool.releaseConnection(conn);
                 });
             });
         }
@@ -119,11 +125,14 @@ export class Repository {
             let query = this.connection.mysql.format(insertQuery, ["tblPower", "tstamp", "mac","power", "power1", "pf1", "current1", "voltage1", "isvalid1", "total1", "total_returned1", "power2", "pf2", "current2", "voltage2", "isvalid2", "total2", "total_returned2", "power3", "pf3", "current3", "voltage3", "isvalid3", "total3", "total_returned3",
                 power.getTstamp(), power.getMac(), power.getPower(), phase1.getPower(), phase1.getPowerfactor(), phase1.getCurrent(), phase1.getVoltage(), phase1.getIsvalid(), phase1.getTotal(), phase1.getTotalreturned(), phase2.getPower(), phase2.getPowerfactor(), phase2.getCurrent(), phase2.getVoltage(), phase2.getIsvalid(), phase2.getTotal(), phase2.getTotalreturned(), phase3.getPower(), phase3.getPowerfactor(), phase3.getCurrent(), phase3.getVoltage(), phase3.getIsvalid(), phase3.getTotal(), phase3.getTotalreturned()]);
             return new Promise((resolve, reject) => {
-                this.pool.query(query, (error, response) => {
-                    if (error) {
-                        return reject(error);
-                    }
-                    return resolve(response);
+                this.pool.getConnection((err, conn)=> {
+                    conn.query(query, (error, response) => {
+                        if (error) {
+                            return reject(error);
+                        }
+                        return resolve(response);
+                    });
+                    this.pool.releaseConnection(conn);
                 });
             });
         }
@@ -133,11 +142,14 @@ export class Repository {
         let morningUnix = HlpClass.getUnixMorningAt(0);
         let query = 'delete from tblPower where tstamp >= ' + morningUnix;
         return new Promise((resolve, reject) => {
-            this.pool.query(query, (error, response) => {
-                if (error) {
-                    return reject(error);
-                }
-                return resolve(response);
+            this.pool.getConnection((err, conn)=> {
+                conn.query(query, (error, response) => {
+                    if (error) {
+                        return reject(error);
+                    }
+                    return resolve(response);
+                });
+                this.pool.releaseConnection(conn);
             });
         });
     }

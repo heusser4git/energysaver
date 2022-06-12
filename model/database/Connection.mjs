@@ -26,13 +26,16 @@ export default class Connection {
 
     pool() {
         //console.log('DB-Pool startet: ' + this.database)
-        return mysql.createPool({
+        let pool =  mysql.createPool({
             connectionLimit: 10,
             password: this.password,
             user: this.user,
             database: this.database,
             host: this.host,
-            port: this.port
+            port: this.port,
+            waitForConnections: true,
+            queueLimit: 0
         });
+        return pool;
     }
 }

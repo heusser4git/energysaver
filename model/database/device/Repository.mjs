@@ -20,11 +20,14 @@ export class Repository {
 
         if (query.length > 10) {
             return new Promise((resolve, reject) => {
-               this.pool.query(query, (error, elements) => {
-                    if (error) {
-                        return reject(error);
-                    }
-                   return resolve(elements);
+                this.pool.getConnection((err, conn)=> {
+                    conn.query(query, (error, elements) => {
+                        if (error) {
+                            return reject(error);
+                        }
+                        return resolve(elements);
+                    });
+                    this.pool.releaseConnection(conn);
                 });
             });
         }

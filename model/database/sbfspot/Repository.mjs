@@ -35,11 +35,14 @@ export class Repository {
         }
         if(query.length>10) {
             return new Promise((resolve, reject)=>{
-               this.connection.pool().query(query,  (error, elements)=>{
-                    if(error){
-                        return reject(error);
-                    }
-                    return resolve(elements);
+                this.pool.getConnection((err, conn)=>{
+                    conn.query(query,  (error, elements)=>{
+                        if(error){
+                            return reject(error);
+                        }
+                        return resolve(elements);
+                    });
+                    this.pool.releaseConnection(conn);
                 });
             });
         }
@@ -87,11 +90,14 @@ export class Repository {
             query += this.connection.mysql.format(insertQuery, ["spotdata", "TimeStamp", "Serial", "Pac1", "Pac2", "Pac3", "EToday", "ETotal", "Temperature",
                 pvdata.timestamp, 1901372529, pvdata.power, 1, 1, pvdata.energy, pvdata.etotal, pvdata.temperature]);
             return new Promise((resolve, reject) => {
-                this.pool.query(query, (error, response) => {
-                    if (error) {
-                        return reject(error);
-                    }
-                    return resolve(response);
+                this.pool.getConnection((err, conn)=> {
+                    conn.query(query, (error, response) => {
+                        if (error) {
+                            return reject(error);
+                        }
+                        return resolve(response);
+                    });
+                    this.pool.releaseConnection(conn);
                 });
             });
         }

@@ -40,11 +40,14 @@ export default class Repository {
         query += ' ORDER BY timestamp';
         if(query.length>25) {
             return new Promise((resolve, reject) => {
-                this.pool.query(query, (error, elements) => {
-                    if (error) {
-                        return reject(error);
-                    }
-                    return resolve(elements);
+                this.pool.getConnection((err, conn)=> {
+                    conn.query(query, (error, elements) => {
+                        if (error) {
+                            return reject(error);
+                        }
+                        return resolve(elements);
+                    });
+                    this.pool.releaseConnection(conn);
                 });
             })
         }
@@ -107,11 +110,14 @@ export default class Repository {
             let query = this.connection.mysql.format(insertQuery, ["tblWetter", "type", "timestamp","latitude", "longitude", "temperatur", "clouds", "uvi", "visibility", "weather_main", "weather_description", "weather_icon", "sunrise", "sunset", "moonset", "moon_phase", "pressure", "humidity", "dew_point", "wind_speed", "wind_deg", "wind_gust", "rain", "temp_day", "temp_min", "temp_max", "temp_night", "temp_eve", "temp_morn",
                 weather.getType(), weather.getTimestamp(), weather.getLongitude(), weather.getLatitude(), weather.getTemperatur(), weather.getClouds(), weather.getUvi(), weather.getVisibility(), weather.getMain(), weather.getDescription(), weather.getIcon(), weather.getSunrise(), weather.getSunset(), weather.getMoonset(), weather.getMoonphase(), weather.getPressure(), weather.getHumidity(), weather.getDewpoint(), weather.getWindspeed(), weather.getWinddeg(), weather.getWindgust(), weather.getRain(), weather.getTempday(), weather.getTempmin(), weather.getTempmax(), weather.getTempnight(), weather.getTempeve(), weather.getTempmorn()]);
             return new Promise((resolve, reject) => {
-                this.pool.query(query, (error, response) => {
-                    if (error) {
-                        return reject(error);
-                    }
-                    return resolve(response.insertId);
+                this.pool.getConnection((err, conn)=> {
+                    conn.query(query, (error, response) => {
+                        if (error) {
+                            return reject(error);
+                        }
+                        return resolve(response.insertId);
+                    });
+                    this.pool.releaseConnection(conn);
                 });
             });
         }
@@ -129,15 +135,16 @@ export default class Repository {
             let query = this.connection.mysql.format(insertQuery, ["tblWetter", "timestamp", unixtimestampIn]);
             query = "UPDATE `tblWetter` set deleted=1 WHERE `timestamp` IN " + unixtimestampIn + " and deleted!=1";
             return new Promise((resolve, reject) => {
-                this.pool.query(query, (error, response) => {
-                    if (error) {
-                        return reject(error);
-                    }
-                    return resolve(response.changedRows);
+                this.pool.getConnection((err, conn)=> {
+                    conn.query(query, (error, response) => {
+                        if (error) {
+                            return reject(error);
+                        }
+                        return resolve(response.changedRows);
+                    });
+                    this.pool.releaseConnection(conn);
                 });
             });
         }
     }
 }
-
-
