@@ -43,8 +43,8 @@ Grafisch aufbereitet werden in der aktuellen Version:
       1. openweather.json
       2. shelly.json
    2. Openweatherapi
-      1. Get an API-Key from openweathermap.org
-      2. Evaluate your Latitude/Longitude (www.latlong.net)
+      1. Erstellen eines API-Key auf openweathermap.org
+      2. Längen- und Breitengrad des gewünschten Standorts ermitteln (www.latlong.net)
       3. `{
          "apikey": "<YOUR_API-KEY>",
          "latitude": <YOUR_LATITUDE>,
@@ -56,7 +56,7 @@ Grafisch aufbereitet werden in der aktuellen Version:
          "port": "80",
          "protocol": "http"
          }`
-7. Module installieren: `npm install axios body-parser express mysql2`
+7. Module installieren: `npm install axios express mysql2`
 8. Optional: Modul mocha für die UnitTests installieren: `npm install mocha`
 9. Server starten:
    1. Root-Verzeichnis der App:
@@ -67,21 +67,22 @@ Grafisch aufbereitet werden in der aktuellen Version:
 _**Default Server-Port: 1234**_
 
 `http://<localhost>:<port>/`
-Gibt die index.html aus dem Verzeichnis view aus
+
+Gibt die index.html aus dem Verzeichnis `view` aus
 
 _**Photovoltaik**_
 
 `http://<localhost>:<port>/pvData/` 
 
-Gibt alle PV-Eintraege aus
+Gibt alle PV-Einträge aus
 
 `http://<localhost>:<port>/pvData/1652554800-1652558400`
 
-Gibt alle PV-Eintraege waehrend einer definierten Periode aus
+Gibt alle PV-Einträge während einer definierten Periode aus
 
 `http://<localhost>:<port>/pvData/current`
 
-Holt den aktuellsten PV-Eintrag bis max. 5min zurueck oder gibt ein leeres Objekt aus
+Holt den aktuellsten PV-Eintrag bis max. 5min zurück oder gibt ein leeres Objekt aus
 
 _**Wetter**_
 
@@ -91,25 +92,22 @@ Gibt alle täglichen Wetterprognosen aus
 
 `http://<localhost>:<port>/wetter/daily/1652554800-1652558400`
 
-Gibt alle täglichen Wetterprognosen waehrend einer definierten Periode aus
+Gibt alle täglichen Wetterprognosen während einer definierten Periode aus
 
-`http://<localhost>:<port>/wetter/daily/449`
-
-Gibt gibt die tägliche Wetterprognose mit der angegebenen ID aus
 
 **_Strommessung Hauseingang_**
 
 `http://<localhost>:<port>/power/`
 
-Gibt alle Power-Eintraege aus
+Gibt alle Power-Einträge aus
 
 `http://<localhost>:<port>/power/1652554800-1652558400`
 
-Gibt alle Power-Eintraege waehrend einer definierten Periode aus
+Gibt alle Power-Einträge während einer definierten Periode aus
 
 `http://<localhost>:<port>/power/current`
 
-Holt den aktuellsten Power-Eintrag bis max. 5min zurueck oder gibt ein leeres Objekt aus
+Holt den aktuellsten Power-Eintrag bis max. 5min zurück oder gibt ein leeres Objekt aus
 
 **_Geräte_**
 
@@ -119,4 +117,6 @@ Gibt alle Geräte aus
 
 
 ###**UNIT TESTING**
-Start Unit-Tests with `npm run test` in the Root-Director
+_Voraussetzung: Installation von Module "mocha" siehe oben._
+
+Start Unit-Tests mit `npm run test` im Root-Verzeichnis
