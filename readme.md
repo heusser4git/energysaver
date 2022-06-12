@@ -6,13 +6,13 @@ Grafisch aufbereitet werden in der aktuellen Version:
 - Die Energie- und Stromproduktion, der Stromkauf und -verkauf des aktuellen Tages als Chart
 - Die Wetterprognose der nächsten Tage
 
-###**VORAUSSETZUNGEN**
+### **VORAUSSETZUNGEN**
 1. Datenbankserver MySQL
    1. Datenbankuser mit Berechtigung Datenbanken zu erstellen, Tabellen zu erstellen, CRUD Operationen auszuführen
 2. Node.js >= Version 16
    1. Node-Module gemäss _package.json_
 
-###**INSTALLATION**
+### **INSTALLATION**
 1. Herunterladen des Energy Savers: https://github.com/heusser4git/energysaver.git
 2. Erstellen der Datenbanken durch Einspielen der Scripts aus dem Verzeichnis ./system: `\. <path>\CreateMySQL_..._DB.sql`
    1. Datenbank Power -> CreateMySQL_Power_DB.sql
@@ -63,7 +63,7 @@ Grafisch aufbereitet werden in der aktuellen Version:
       1. `npm start`
 
 
-###**REST-API**
+### **REST-API**
 _**Default Server-Port: 1234**_
 
 `http://<localhost>:<port>/`
@@ -116,7 +116,7 @@ Holt den aktuellsten Power-Eintrag bis max. 5min zurück oder gibt ein leeres Ob
 Gibt alle Geräte aus
 
 
-###**UNIT TESTING**
+### **UNIT TESTING**
 _Voraussetzung: Installation von Module "mocha" siehe oben._
 
 Start Unit-Tests mit `npm run test` im Root-Verzeichnis
