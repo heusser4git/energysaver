@@ -21,11 +21,11 @@ export class Controller{
 
         setInterval(()=>{
             this.intervalSlow();
-        }, 300000)
+        }, 150000)
 
         setInterval(()=>{
             this.intervalFast(device);
-        }, 10000)
+        }, 500)
 
     }
 
