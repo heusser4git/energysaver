@@ -68,7 +68,7 @@ _**Default Server-Port: 1234**_
 
 `http://<localhost>:<port>/`
 
-Gibt die index.html aus dem Verzeichnis `view` aus
+Gibt die index.html aus dem Verzeichnis `view` aus - dies ist das Frontend. 
 
 _**Photovoltaik**_
 
