@@ -183,7 +183,10 @@ export class View {
             yAxis: [
                 {
                     id: 'power',
-                    title: {text: 'Power'},
+                    title: {
+                        text: 'Leistung',
+                        style: {color: '#ffffff'}
+                    },
                     labels: {
                         formatter: function () {
                             return this.value / 1000 + ' kW';
@@ -194,12 +197,15 @@ export class View {
                 },
                 {
                     id: 'energy',
-                    title: {text: 'Energy'},
+                    title: {
+                        text: 'Energie',
+                        style: {color: '#0000ff'}
+                    },
                     labels: {
                         formatter: function () {
-                            return (this.value / 1000).toFixed(0) + ' kWh';
+                            return (this.value / 1000).toFixed(1) + ' kWh';
                         },
-                        style: {color: '#00b300'}
+                        style: {color: '#0000ff'}
                     },
                     min: 0,
                     showEmpty: false,
