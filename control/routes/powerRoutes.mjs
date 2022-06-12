@@ -1,5 +1,5 @@
 import express from 'express';
-import {Repository} from "../../model/database/power/Repository.mjs";
+import {Repository} from "../../model/service/power/Repository.mjs";
 import {HlpClass} from "../../model/HlpClass.mjs";
 const Router = express.Router();
 

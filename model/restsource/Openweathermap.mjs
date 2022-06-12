@@ -4,7 +4,7 @@
 
 import https from 'https';
 
-import Repository from "../database/weather/Repository.mjs";
+import Repository from "../service/weather/Repository.mjs";
 import {Weather} from "../Weather.mjs";
 import fs from "fs";
 

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import {Power} from "../Power.mjs";
-import {Repository} from "../database/power/Repository.mjs";
+import {Repository} from "../service/power/Repository.mjs";
 import fs from "fs";
 
 export default class Shelly{

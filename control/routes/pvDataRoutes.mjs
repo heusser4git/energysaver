@@ -1,6 +1,6 @@
 import express from 'express';
 import {Pvdata} from "../../model/Pvdata.mjs";
-import {Repository} from "../../model/database/sbfspot/Repository.mjs";
+import {Repository} from "../../model/service/sbfspot/Repository.mjs";
 import {HlpClass} from "../../model/HlpClass.mjs";
 const Router = express.Router();
 

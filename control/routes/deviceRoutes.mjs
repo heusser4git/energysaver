@@ -1,5 +1,5 @@
 import express from 'express';
-import {Repository} from "../../model/database/device/Repository.mjs";
+import {Repository} from "../../model/service/device/Repository.mjs";
 const Router = express.Router();
 
 const repo = new Repository();

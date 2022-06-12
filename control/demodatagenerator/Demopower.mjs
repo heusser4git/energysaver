@@ -1,4 +1,4 @@
-import {Repository} from "../../model/database/power/Repository.mjs";
+import {Repository} from "../../model/service/power/Repository.mjs";
 import {HlpClass} from "../../model/HlpClass.mjs";
 
 export default class Demopower {

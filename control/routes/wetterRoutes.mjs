@@ -1,5 +1,5 @@
 import express from 'express';
-import Repository from "../../model/database/weather/Repository.mjs";
+import Repository from "../../model/service/weather/Repository.mjs";
 import {Weather} from "../../model/Weather.mjs";
 const Router = express.Router();
 

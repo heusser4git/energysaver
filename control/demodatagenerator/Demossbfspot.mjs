@@ -1,4 +1,4 @@
-import {Repository} from "../../model/database/sbfspot/Repository.mjs";
+import {Repository} from "../../model/service/sbfspot/Repository.mjs";
 import {HlpClass} from "../../model/HlpClass.mjs";
 
 export default class Demosbfspot {
