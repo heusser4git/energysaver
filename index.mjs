@@ -6,8 +6,8 @@ import PvDataRoutes from './control/routes/pvDataRoutes.mjs';
 import PowerRoutes from './control/routes/powerRoutes.mjs';
 import DeviceRoutes from './control/routes/deviceRoutes.mjs';
 import WebRoutes from './control/routes/webRoutes.mjs';
-import {Openweathermap} from "./model/restsource/Openweathermap.mjs";
-import Shelly from "./model/restsource/Shelly.mjs";
+import {Openweathermap} from "./model/service/restsource/Openweathermap.mjs";
+import Shelly from "./model/service/restsource/Shelly.mjs";
 import Demosbfspot from "./control/demodatagenerator/Demossbfspot.mjs";
 import Demopower from "./control/demodatagenerator/Demopower.mjs";
 

@@ -4,8 +4,8 @@
 
 import https from 'https';
 
-import Repository from "../service/weather/Repository.mjs";
-import {Weather} from "../Weather.mjs";
+import Repository from "../weather/Repository.mjs";
+import {Weather} from "../../Weather.mjs";
 import fs from "fs";
 
 export class Openweathermap {
