@@ -69,11 +69,12 @@ export class View {
         if (powerCurrent.power > 0) {
             document.getElementById("currentPower").innerText = Math.round(powerCurrent.power) + "W"
             HvL2Icon.src = "./img/Pfeil-links.svg"
-        } if(powerCurrent.power === undefined){
-            document.getElementById("currentPower").innerText = "0W"
         } else{
             document.getElementById("currentPower").innerText = Math.round(powerCurrent.power * -1) + "W"
             HvL2Icon.src = "./img/Pfeil-rechts.svg"
+        }
+        if(powerCurrent.power === undefined){
+            document.getElementById("currentPower").innerText = "0W"
         }
 
         if (pVcurrent.power === undefined) {
