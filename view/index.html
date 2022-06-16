@@ -1,50 +1,61 @@
-<!doctype html>
+<!Doctype html>
 <html lang="de">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="style.css">
-    <link rel="shortcut icon" href="favicon.ico">
-    <script src="https://code.highcharts.com/highcharts.js"></script>
-    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
-</head>
-<body>
-    <header>
-        <div>
-            <h1>Energy Saver 1.0</h1>
-        </div>
-    </header>
-    <main>
-        <article>
-            <div class="Home-Visu">
-                <div class="Home-Visu-icon"><img src="img/PVA.svg" style="height: 100px"></div>
-                <div class="Home-Visu-label">
-                    <div><label id="currentPVA"></label></div>
-                    <div id="HvL1-icon"></div>
-                </div>
-                <div class="Home-Visu-icon"><img src="img/Haus.svg" style="height: 100px"></div>
-                <div class="Home-Visu-label">
-                    <div><label id="currentPower"></label></div>
-                    <div id="HvL2-icon"></div>
-                </div>
-                <div><img src="img/Netz.svg" style="height: 100px"></div>
+    <head>
+        <title>Energy Saver</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="style.css">
+        <link rel="shortcut icon" href="favicon.ico">
+        <script src="https://code.highcharts.com/highcharts.js"></script>
+        <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    </head>
+    <body>
+        <header>
+            <div>
+                <h1>Energy Saver 1.0</h1>
             </div>
-        </article>
-        <article>
-            <div id="device" class="device"></div>
-        </article>
-        <article>
-            <div id="container" class="container"></div>
-            <div id="table" class="table"></div>
-        </article>
-        <article>
-            <div class="six-days-forecast">
-                <ul id="table-weather" class="table-weather"></ul>
+        </header>
+        <main>
+            <div class="article">
+                <div class="Home-Visu">
+                    <div class="Home-Visu-icon">
+                        <img src="img/PVA.svg" style="height: 100px" alt="">
+                    </div>
+                    <div class="Home-Visu-label">
+                        <div>
+                            <label id="currentPVA"></label>
+                        </div>
+                        <div id="HvL1-icon"></div>
+                    </div>
+                    <div class="Home-Visu-icon">
+                        <img src="img/Haus.svg" style="height: 100px" alt=" ">
+                    </div>
+                    <div class="Home-Visu-label">
+                        <div>
+                            <label id="currentPower"></label>
+                        </div>
+                        <div id="HvL2-icon"></div>
+                    </div>
+                    <div>
+                        <img src="img/Netz.svg" style="height: 100px" alt="" >
+                    </div>
+                </div>
             </div>
-        </article>
-    </main>
-    <footer>
-    </footer>
-    <script type="module" src="app.mjs"></script>
-</body>
+            <div class="article">
+                <div id="device" class="device"></div>
+            </div>
+                <div class="article">
+                <div id="container" class="container"></div>
+                <div id="table" class="table"></div>
+                </div>
+            <div class="article">
+                <div class="six-days-forecast">
+                    <ul id="table-weather" class="table-weather"></ul>
+                </div>
+            </div>
+        </main>
+        <footer>
+        </footer>
+        <script type="module" src="app.mjs"></script>
+    </body>
 </html>
