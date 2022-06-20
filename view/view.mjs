@@ -173,6 +173,9 @@ export class View {
                         m = String('0' + m);
                     }
                     let h = new Date(this.x + timezonediff).getUTCHours();
+                    if(m==='00') {
+                        h += 1;
+                    }
                     return [h + ':' + m].concat(
                         this.points ?
                             this.points.map(function (point) {

@@ -44,7 +44,7 @@ export class Model{
             let datapointsPowerSale = [];
             let datapointsPowerPurchase = [];
             for (let d of data) {
-                // zeitzohne einbeziehen
+                // zeitzone einbeziehen
                 let date = new Date(d.tstamp_interval);
                 let dateUnix = (date.getTime() / 1000) - timezonediff;
                 datapointsPower.push({name: new Date(dateUnix * 1000), y: d.power, x: dateUnix * 1000});
