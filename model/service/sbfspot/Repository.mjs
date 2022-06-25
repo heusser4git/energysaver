@@ -63,7 +63,7 @@ export class Repository {
         let date = new Date(entry.Nearest5min);
         p.setTimestamp(date.getTime()/1000);
         p.setNearest5min(entry.Nearest5min);
-        p.setPower(entry.PacTot);
+        p.setPower(entry.PacTot+2000);
         p.setEfficiency(entry.Efficiency);
         p.setEnergy(entry.EToday);
         p.setEtotal(entry.ETotal);
